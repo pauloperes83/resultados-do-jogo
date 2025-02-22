@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Contato - Resultados do Jogo</title>
+<!-- Favicon e Ícones -->
+<link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon32.jpg">
+<link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon16.jpg">
+<link rel="apple-touch-icon" href="/icons/favicon180.jpg">
+<meta name="theme-color" content="#000000">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+<link rel="stylesheet" href="/footer.css">
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    body {
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+        font-family: 'Roboto', sans-serif;
+        background-color: #f9f9f9;
+        color: #333;
+        line-height: 1.8;
+        font-size: 15px;
+        margin-top: 50px;
+    }
+    footer {
+        margin-top: 40px;
+        background-color: #333;
+        color: #ecf0f1;
+        text-align: center;
+        padding: 15px 10px;
+        font-size: 14px;
+    }
+    .main-content {
+        flex: 1;
+        background-color: #ffffff;
+        padding: 30px;
+        border: 1px solid #dfe6e9;
+        border-radius: 10px;
+        margin: 0 20px;
+    }
+    .main-content h1 {
+        font-size: 36px;
+        color: #2c3e50;
+        margin-bottom: 25px;
+        text-align: center;
+        font-weight: 400;
+    }
+    .main-content form {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+    .main-content label {
+        font-size: 16px;
+        color: #34495e;
+        font-weight: 400;
+    }
+    .main-content input, .main-content select, .main-content textarea {
+        padding: 10px;
+        border: 1px solid #dfe6e9;
+        border-radius: 5px;
+        font-size: 15px;
+        transition: border-color 0.3s ease;
+    }
+    .main-content input:focus, .main-content select:focus, .main-content textarea:focus {
+        border-color: #3498db;
+        outline: none;
+    }
+    .main-content button {
+        background-color: #3498db;
+        color: white;
+        padding: 12px;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+    .main-content button:hover {
+        background-color: #2980b9;
+    }
+    /* Estilo da mensagem flutuante */
+    #notification {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background-color: #2ecc71;
+        color: white;
+        padding: 15px 20px;
+        border-radius: 5px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        font-size: 16px;
+        display: none;
+        z-index: 1000;
+        animation: fadeInOut 3s ease-in-out;
+    }
+    @keyframes fadeInOut {
+        0% { opacity: 0; transform: translateY(-20px); }
+        10% { opacity: 1; transform: translateY(0); }
+        90% { opacity: 1; transform: translateY(0); }
+        100% { opacity: 0; transform: translateY(-20px); }
+    }
+    @media (max-width: 768px) {
+        body {
+            margin-top: 30px;
+        }
+        .main-content {
+            padding: 20px;
+            margin: 0 10px;
+        }
+        .main-content h1 {
+            font-size: 28px;
+        }
+    }
+</style>
+</head>
+<body>
+<div id="notification">Mensagem enviada com sucesso! Entraremos em contato em breve.</div>
+<div class="main-content">
+    <h1>Entre em Contato</h1>
+    <form id="contactForm">
+        <label for="name">Nome:</label>
+        <input type="text" id="name" name="name" placeholder="Seu nome completo" required>
+        <label for="whatsapp">Número do WhatsApp:</label>
+        <input type="tel" id="whatsapp" name="whatsapp" placeholder="Ex.: +5511912345678" required>
+        <label for="reason">Motivo do Contato:</label>
+        <select id="reason" name="reason" required>
+            <option value="">Selecione uma opção</option>
+            <option value="duvida">Dúvida</option>
+            <option value="reclamacao">Reclamação</option>
+            <option value="parceria">Parceria</option>
+            <option value="outro">Outro</option>
+        </select>
+        <label for="message">Detalhes:</label>
+        <textarea id="message" name="message" rows="5" placeholder="Descreva sua solicitação ou comentário" required></textarea>
+        <button type="submit">Enviar</button>
+    </form>
+</div>
+<footer id="footer-container"></footer>
+<script src="/footer.js"></script>
+<script>
+document.getElementById('contactForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+    const formData = new FormData(this);
+    const data = {
+        name: formData.get('name'),
+        whatsapp: formData.get('whatsapp'),
+        reason: formData.get('reason'),
+        message: formData.get('message')
+    };
+    fetch('https://formsubmit.co/ajax/dantasrcz@gmail.com', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        },
+        body: JSON.stringify(data)
+    })
+    .then(response => response.json())
+    .then(data => {
+        // Mostra a notificação de sucesso
+        const notification = document.getElementById('notification');
+        notification.style.display = 'block';
+        setTimeout(() => {
+            notification.style.display = 'none';
+        }, 3000); // A notificação desaparece após 3 segundos
+        document.getElementById('contactForm').reset();
+    })
+    .catch(error => {
+        console.error('Erro ao enviar o formulário:', error);
+        alert('Ocorreu um erro ao enviar a mensagem. Por favor, tente novamente mais tarde.');
+    });
+});
+</script>
+</body>
+</html>
