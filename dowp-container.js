@@ -123,13 +123,13 @@
             <option value="/resultado-paratodos-bahia">Paratodos Bahia</option>
         </optgroup>
         <optgroup label="Ceará">
-            <option value="/resultado-lotece-loteria-dos-sonhos">LOTECE - Loteria dos Sonhos</option>
+            <option value="/resultado-lotece-ceara">LOTECE - Loteria dos Sonhos</option>
         </optgroup>
         <optgroup label="Goiás">
-            <option value="/resultado-look-loterias">LOOK LOTERIAS</option>
+            <option value="/resultado-look-goias">LOOK LOTERIAS</option>
         </optgroup>
         <optgroup label="Paraíba">
-            <option value="/resultado-lotep">Lotep</option>
+            <option value="/resultado-lotep-pb">Lotep</option>
             <option value="/resultado-paratodos-pb">Paratodos PB</option>
         </optgroup>
         <optgroup label="Rio de Janeiro">
@@ -137,18 +137,18 @@
         </optgroup>
         <optgroup label="São Paulo">
             <option value="/resultado-pt-sp">PT-SP</option>
-            <option value="/resultado-bandeirantes">BANDEIRANTES</option>
+            <option value="/resultado-bandeirantes-sp">BANDEIRANTES</option>
         </optgroup>
         <optgroup label="Pernambuco">
             <option value="/resultado-aval-pernambuco">AVAL Pernambuco</option>
-            <option value="/resultado-caminho-da-sorte">CAMINHO DA SORTE</option>
-            <option value="/resultado-cooperativa-de-petrolina-pe">Cooperativa de Petrolina-PE</option>
-            <option value="/resultado-extracao-online-alianca">EXTRAÇÃO ONLINE - ALIANÇA</option>
+            <option value="/resultado-caminho-da-sorte-pe">CAMINHO DA SORTE</option>
+            <option value="/resultado-cooperativa-de-petrolina">Cooperativa de Petrolina-PE</option>
+            <option value="/resultado-alianca-pe">EXTRAÇÃO ONLINE - ALIANÇA</option>
             <option value="/resultado-loteria-popular">LOTERIA POPULAR</option>
-            <option value="/resultado-nordeste-monte-carlos">NORDESTE MONTE CARLOS</option>
+            <option value="/resultado-nordeste-monte-carlos-pe">NORDESTE MONTE CARLOS</option>
         </optgroup>
         <optgroup label="Brasília (DF)">
-            <option value="/resultado-lbr">LBR</option>
+            <option value="/resultado-lbr-brasilia">LBR</option>
         </optgroup>
         <optgroup label="Minas Gerais">
             <option value="/resultado-minas-mg">MINAS-MG</option>
