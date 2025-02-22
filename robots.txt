@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+
+# Permite a indexação de arquivos CSS e JS (importante para renderização correta)
+Allow: /*.css$
+Allow: /*.js$
+
+# Sitemap (substitua pela URL correta do seu sitemap, se houver)
+Sitemap: http://www.resultadosdojogo.com/sitemap.xml

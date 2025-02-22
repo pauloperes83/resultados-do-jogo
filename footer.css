@@ -1,0 +1,71 @@
+/* Estilos para o container do rodapé */
+.footer-container {
+    max-width: 1200px;
+    margin: auto;
+}
+
+/* Links dentro do rodapé */
+.footer-links a {
+    color: #fff !important; /* Garantindo que os links sejam brancos */
+    margin: 0 15px;
+    text-decoration: none;
+}
+
+.footer-links a:hover {
+    text-decoration: underline !important; /* Garantindo que o efeito de hover funcione */
+}
+
+/* Estilo dos ícones de redes sociais */
+.footer-social {
+    margin: 25px 0;
+}
+
+.social-icon {
+    color: #fff !important; /* Garantindo que os ícones sejam brancos */
+    font-size: 20px;
+    margin: 0 10px;
+}
+
+/* Texto e outros elementos do rodapé */
+.footer-text, .footer-copyright, .footer-app {
+    margin-top: 30px;
+    font-size: 14px;
+}
+
+.footer-app a {
+    color: #ffcc00 !important; /* Garantindo que o link "Acesse nosso aplicativo" seja amarelo */
+    text-decoration: none;
+}
+
+.footer-app a:hover {
+    text-decoration: underline !important; /* Garantindo que o efeito de hover funcione */
+}
+
+/* Espaçamento adicional */
+.footer-spacing {
+    height: 40px;
+}
+
+/* Estilos para dispositivos móveis */
+@media (max-width: 768px) {
+    .footer-links {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 10px;
+    }
+    .footer-links a {
+        margin: 5px 0;
+    }
+}
+
+/* Estilos para computadores (largura maior que 768px) */
+@media (min-width: 769px) {
+    .footer-links {
+        display: flex;
+        justify-content: center;
+    }
+    .footer-links a {
+        margin: 0 15px;
+    }
+}

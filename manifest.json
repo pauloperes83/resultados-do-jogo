@@ -1,0 +1,21 @@
+{
+    "name": "Resultados do Jogo",
+    "short_name": "Resultados do Jogo",
+    "start_url": "index.html",
+    "display": "standalone",
+    "background_color": "white",
+    "theme_color": "#333",
+    "icons": [
+        {
+            "src": "icons/icon192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "icons/icon512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ],
+    "description": "Todos os resultados do Jogo do Bicho em tempo real, aqui no Resultados Fácil!"
+}
