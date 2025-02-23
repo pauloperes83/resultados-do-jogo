@@ -691,5 +691,47 @@ window.dispatchEvent(new Event('scroll'));
     <script src="/menu-horizontal.js"></script>
     <script src="/footer.js"></script>
     <script src="/cookies.js"></script>
+<script>
+// 3. Registrando o Service Worker no seu site (script.js)
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/service-worker.js')
+      .then(() => console.log('Service Worker registrado!'))
+      .catch((err) => console.error('Erro no registro do Service Worker:', err));
+  });
+}
+
+// 4. Criando o botão de instalação
+let deferredPrompt;
+
+window.addEventListener('beforeinstallprompt', (event) => {
+    event.preventDefault();
+    deferredPrompt = event;
+    document.getElementById('install-app').style.display = 'block'; // Mostra o link
+});
+
+function installPWA() {
+    if (deferredPrompt) {
+        deferredPrompt.prompt();
+        deferredPrompt.userChoice.then((choiceResult) => {
+            if (choiceResult.outcome === 'accepted') {
+                console.log('Usuário aceitou instalar o PWA');
+            }
+            deferredPrompt = null;
+        });
+    }
+}
+
+
+        // Verifica se a página anterior é do mesmo domínio
+        document.getElementById('backButton').addEventListener('click', function(event) {
+            const previousPage = document.referrer;
+            const currentDomain = window.location.origin;
+
+            if (previousPage.startsWith(currentDomain)) {
+                window.history.back(); // Volta para a página anterior
+            }
+        });
+</script>
 </body>
 </html>
