@@ -9,7 +9,7 @@ function toggleMenu() {
 function toggleSubmenu(event, element, isSubitem) {
     event.stopPropagation();
     let submenu = element.querySelector('ul');
-    let icon = element.querySelector('.menu-arrow');
+    let icon = element.querySelector('.menu-arrow i');
     let parentMenu = element.closest('.menu, .submenu');
 
     if (!isSubitem) {
@@ -33,7 +33,8 @@ function toggleSubmenu(event, element, isSubitem) {
     if (submenu) {
         let isVisible = submenu.style.display === 'block';
         submenu.style.display = isVisible ? 'none' : 'block';
-        icon.innerHTML = isVisible ? '⏷' : '⏶'; // Alterna a seta
+        icon.classList.toggle('fa-chevron-down', isVisible);
+        icon.classList.toggle('fa-chevron-up', !isVisible);
     }
 }
 
@@ -45,8 +46,11 @@ function resetMenu() {
 }
 
 function resetArrow(element) {
-    let icon = element.querySelector('.menu-arrow');
-    if (icon) icon.innerHTML = '⏷';
+    let icon = element.querySelector('.menu-arrow i');
+    if (icon) {
+        icon.classList.remove('fa-chevron-up');
+        icon.classList.add('fa-chevron-down');
+    }
 }
 
 document.addEventListener('click', function(event) {
