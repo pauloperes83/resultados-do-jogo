@@ -27,7 +27,7 @@ jobs:
           
           # Busca todos os arquivos .html no repositório (inclusive subpastas)
           find . -type f -name "*.html" | while read file; do
-            url="https://acertosonline.github.io/Resultados/${file#./}"  # Remove "./" do caminho
+            url="https://www.resultadosdojogo.com/${file#./}"  # Remove "./" do caminho
             echo "  <url><loc>$url</loc></url>" >> sitemap.xml
           done
           
