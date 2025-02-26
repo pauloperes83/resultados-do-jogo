@@ -5,7 +5,7 @@ on:
     branches:
       - main
   schedule:
-    - cron: "0 3 * * *"  # Executa todo dia às 03:00 UTC
+    - cron: "0 3 * * *"  # Executa todos os dias às 03:00 UTC
 
 jobs:
   update_sitemap:
@@ -20,15 +20,42 @@ jobs:
           git config --global user.name "github-actions"
           git config --global user.email "github-actions@github.com"
 
-      - name: Gerar Sitemap.xml
+      - name: Gerar Sitemap.xml Apenas com Páginas Específicas
         run: |
           echo '<?xml version="1.0" encoding="UTF-8"?>' > sitemap.xml
           echo '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' >> sitemap.xml
           
-          # Busca todos os arquivos .html no repositório (inclusive subpastas)
-          find . -type f -name "*.html" | while read file; do
-            url="https://www.resultadosdojogo.com/${file#./}"  # Remove "./" do caminho
-            echo "  <url><loc>$url</loc></url>" >> sitemap.xml
+          # Lista de páginas específicas que devem ser incluídas
+          paginas_especificas=(
+            "resultado-maluca-bahia-de-hoje.html"
+            "resultado-paratodos-bahia-de-hoje.html"
+            "resultado-loteria-nacional-de-hoje.html"
+            "resultado-look-goias-de-hoje.html"
+            "resultado-lotep-pb-de-hoje.html"
+            "resultado-paratodos-pb-de-hoje.html"
+            "resultado-pt-rio-de-hoje.html"
+            "resultado-pt-sp-de-hoje.html"
+            "resultado-bandeirantes-sp-de-hoje.html"
+            "resultado-lotece-ceara-de-hoje.html"
+            "resultado-lbr-brasilia-de-hoje.html"
+            "resultado-minas-mg-de-hoje.html"
+            "resultado-bicho-rs-de-hoje.html"
+            "resultado-abaese-itabaiana-paratodos-de-hoje.html"
+            "resultado-aval-pernambuco-de-hoje.html"
+            "resultado-caminho-da-sorte-pe-de-hoje.html"
+            "resultado-cooperativa-de-petrolina-de-hoje.html"
+            "resultado-alianca-pe-de-hoje.html"
+            "resultado-loteria-popular-de-hoje.html"
+            "resultado-nordeste-monte-carlos-pe-de-hoje.html"
+          )
+
+          # Obter a data atual em formato YYYY-MM-DD
+          data_atual=$(date +'%Y-%m-%d')
+
+          # Adicionar somente as páginas específicas ao sitemap
+          for pagina in "${paginas_especificas[@]}"; do
+            url="https://www.resultadosdojogo.com/$pagina"
+            echo "  <url><loc>$url</loc><lastmod>$data_atual</lastmod><changefreq>daily</changefreq><priority>1.0</priority></url>" >> sitemap.xml
           done
           
           echo '</urlset>' >> sitemap.xml
@@ -45,3 +72,7 @@ jobs:
             git commit -m "Atualizando sitemap.xml automaticamente"
             git push
           fi
+
+      - name: Enviar Sitemap para o Google
+        run: |
+          curl "https://www.google.com/ping?sitemap=https://www.resultadosdojogo.com/sitemap.xml"
