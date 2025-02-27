@@ -1,11 +1,11 @@
-name: Atualizar Sitemap e Indexar
+name: Atualizar Sitemap
 
 on:
   push:
     branches:
       - main
   schedule:
-    - cron: "0 2 * * *"  # Executa todo dia às 02:00 UTC
+    - cron: "0 3 * * *"  # Executa todos os dias às 03:00 UTC
 
 jobs:
   update_sitemap:
@@ -20,71 +20,42 @@ jobs:
           git config --global user.name "github-actions"
           git config --global user.email "github-actions@github.com"
 
-      - name: Adicionar e configurar as credenciais da conta de serviço do Google
-        run: |
-          # Escrever o JSON no arquivo sem modificações
-          printf '%s' "${{ secrets.GOOGLE_CREDENTIALS }}" > /tmp/google-credentials.json
-          # Exibir informações detalhadas para depuração
-          echo "=== Conteúdo bruto de GOOGLE_CREDENTIALS ==="
-          echo "${{ secrets.GOOGLE_CREDENTIALS }}"
-          echo "=== Conteúdo de /tmp/google-credentials.json ==="
-          cat /tmp/google-credentials.json
-          echo "=== Fim do conteúdo ==="
-          # Validar o JSON
-          if ! jq . /tmp/google-credentials.json > /dev/null 2>&1; then
-            echo "Erro: O arquivo /tmp/google-credentials.json não é um JSON válido!"
-            jq . /tmp/google-credentials.json  # Mostrar o erro exato do jq
-            exit 1
-          else
-            echo "JSON validado com sucesso!"
-          fi
-
-      - name: Configurar a autenticação com Google API
-        run: |
-          # Instalar Google Cloud SDK
-          curl -s https://sdk.cloud.google.com > install_gcloud.sh
-          bash install_gcloud.sh --disable-prompts
-          source $HOME/google-cloud-sdk/path.bash.inc
-          # Verificar se o arquivo de credenciais existe e não está vazio
-          if [ ! -s /tmp/google-credentials.json ]; then
-            echo "Erro: Arquivo de credenciais vazio ou não encontrado!"
-            exit 1
-          fi
-          # Tentar autenticar
-          gcloud auth activate-service-account --key-file /tmp/google-credentials.json
-          # Verificar autenticação
-          gcloud auth list
-
-      - name: Gerar Sitemap.xml
+      - name: Gerar Sitemap.xml Apenas com Páginas Específicas
         run: |
           echo '<?xml version="1.0" encoding="UTF-8"?>' > sitemap.xml
           echo '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' >> sitemap.xml
           
-          urls=(
-            "https://www.resultadosdojogo.com/resultado-maluca-bahia-de-hoje.html"
-            "https://www.resultadosdojogo.com/resultado-paratodos-bahia-de-hoje.html"
-            "https://www.resultadosdojogo.com/resultado-loteria-nacional-de-hoje.html"
-            "https://www.resultadosdojogo.com/resultado-look-goias-de-hoje.html"
-            "https://www.resultadosdojogo.com/resultado-lotep-pb-de-hoje.html"
-            "https://www.resultadosdojogo.com/resultado-paratodos-pb-de-hoje.html"
-            "https://www.resultadosdojogo.com/resultado-pt-rio-de-hoje.html"
-            "https://www.resultadosdojogo.com/resultado-pt-sp-de-hoje.html"
-            "https://www.resultadosdojogo.com/resultado-bandeirantes-sp-de-hoje.html"
-            "https://www.resultadosdojogo.com/resultado-lotece-ceara-de-hoje.html"
-            "https://www.resultadosdojogo.com/resultado-lbr-brasilia-de-hoje.html"
-            "https://www.resultadosdojogo.com/resultado-minas-mg-de-hoje.html"
-            "https://www.resultadosdojogo.com/resultado-bicho-rs-de-hoje.html"
-            "https://www.resultadosdojogo.com/resultado-abaese-itabaiana-paratodos-de-hoje.html"
-            "https://www.resultadosdojogo.com/resultado-aval-pernambuco-de-hoje.html"
-            "https://www.resultadosdojogo.com/resultado-caminho-da-sorte-pe-de-hoje.html"
-            "https://www.resultadosdojogo.com/resultado-cooperativa-de-petrolina-de-hoje.html"
-            "https://www.resultadosdojogo.com/resultado-alianca-pe-de-hoje.html"
-            "https://www.resultadosdojogo.com/resultado-loteria-popular-de-hoje.html"
-            "https://www.resultadosdojogo.com/resultado-nordeste-monte-carlos-pe-de-hoje.html"
+          # Lista de páginas específicas que devem ser incluídas
+          paginas_especificas=(
+            "resultado-maluca-bahia-de-hoje.html"
+            "resultado-paratodos-bahia-de-hoje.html"
+            "resultado-loteria-nacional-de-hoje.html"
+            "resultado-look-goias-de-hoje.html"
+            "resultado-lotep-pb-de-hoje.html"
+            "resultado-paratodos-pb-de-hoje.html"
+            "resultado-pt-rio-de-hoje.html"
+            "resultado-pt-sp-de-hoje.html"
+            "resultado-bandeirantes-sp-de-hoje.html"
+            "resultado-lotece-ceara-de-hoje.html"
+            "resultado-lbr-brasilia-de-hoje.html"
+            "resultado-minas-mg-de-hoje.html"
+            "resultado-bicho-rs-de-hoje.html"
+            "resultado-abaese-itabaiana-paratodos-de-hoje.html"
+            "resultado-aval-pernambuco-de-hoje.html"
+            "resultado-caminho-da-sorte-pe-de-hoje.html"
+            "resultado-cooperativa-de-petrolina-de-hoje.html"
+            "resultado-alianca-pe-de-hoje.html"
+            "resultado-loteria-popular-de-hoje.html"
+            "resultado-nordeste-monte-carlos-pe-de-hoje.html"
           )
 
-          for url in "${urls[@]}"; do
-            echo "  <url><loc>$url</loc><lastmod>$(date --utc +'%Y-%m-%dT%H:%M:%SZ')</lastmod></url>" >> sitemap.xml
+          # Obter a data atual em formato YYYY-MM-DD
+          data_atual=$(date +'%Y-%m-%d')
+
+          # Adicionar somente as páginas específicas ao sitemap
+          for pagina in "${paginas_especificas[@]}"; do
+            url="https://www.resultadosdojogo.com/$pagina"
+            echo "  <url><loc>$url</loc><lastmod>$data_atual</lastmod><changefreq>daily</changefreq><priority>1.0</priority></url>" >> sitemap.xml
           done
           
           echo '</urlset>' >> sitemap.xml
@@ -92,17 +63,7 @@ jobs:
           # Exibir o conteúdo do sitemap para debug
           cat sitemap.xml
 
-      - name: Enviar URLs para reindexação na API do Google
-        run: |
-          ACCESS_TOKEN=$(gcloud auth application-default print-access-token)
-          for url in "${urls[@]}"; do
-            curl -X POST "https://indexing.googleapis.com/v3/urlNotifications:publish" \
-              -H "Content-Type: application/json" \
-              -H "Authorization: Bearer $ACCESS_TOKEN" \
-              -d "{\"url\": \"$url\", \"type\": \"URL_UPDATED\"}"
-          done
-
-      - name: Commit e Push se houver mudanças no sitemap
+      - name: Commit e Push se houver mudanças
         run: |
           git add sitemap.xml
           if git diff --staged --quiet; then
@@ -111,3 +72,7 @@ jobs:
             git commit -m "Atualizando sitemap.xml automaticamente"
             git push
           fi
+
+      - name: Enviar Sitemap para o Google
+        run: |
+          curl "https://www.google.com/ping?sitemap=https://www.resultadosdojogo.com/sitemap.xml"
