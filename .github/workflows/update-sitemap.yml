@@ -22,15 +22,21 @@ jobs:
 
       - name: Adicionar e configurar as credenciais da conta de serviço do Google
         run: |
-          # Escrever o JSON no arquivo sem adicionar quebras de linha extras
+          # Escrever o JSON no arquivo sem modificações
           printf '%s' "${{ secrets.GOOGLE_CREDENTIALS }}" > /tmp/google-credentials.json
-          # Verificar o conteúdo para depuração
-          echo "Conteúdo de /tmp/google-credentials.json:"
+          # Exibir informações detalhadas para depuração
+          echo "=== Conteúdo bruto de GOOGLE_CREDENTIALS ==="
+          echo "${{ secrets.GOOGLE_CREDENTIALS }}"
+          echo "=== Conteúdo de /tmp/google-credentials.json ==="
           cat /tmp/google-credentials.json
+          echo "=== Fim do conteúdo ==="
           # Validar o JSON
           if ! jq . /tmp/google-credentials.json > /dev/null 2>&1; then
             echo "Erro: O arquivo /tmp/google-credentials.json não é um JSON válido!"
+            jq . /tmp/google-credentials.json  # Mostrar o erro exato do jq
             exit 1
+          else
+            echo "JSON validado com sucesso!"
           fi
 
       - name: Configurar a autenticação com Google API
