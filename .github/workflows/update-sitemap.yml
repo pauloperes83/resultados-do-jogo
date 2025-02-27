@@ -5,7 +5,7 @@ on:
     branches:
       - main
   schedule:
-    - cron: "0 2 * * *"  # Executa todo dia às 03:00 UTC
+    - cron: "0 2 * * *"  # Executa todo dia às 02:00 UTC
 
 jobs:
   update_sitemap:
@@ -22,21 +22,38 @@ jobs:
 
       - name: Adicionar e configurar as credenciais da conta de serviço do Google
         run: |
-          echo "${{ secrets.GOOGLE_CREDENTIALS }}" > /tmp/google-credentials.json
+          # Escrever o JSON no arquivo sem adicionar quebras de linha extras
+          printf '%s' "${{ secrets.GOOGLE_CREDENTIALS }}" > /tmp/google-credentials.json
+          # Verificar o conteúdo para depuração
+          echo "Conteúdo de /tmp/google-credentials.json:"
+          cat /tmp/google-credentials.json
+          # Validar o JSON
+          if ! jq . /tmp/google-credentials.json > /dev/null 2>&1; then
+            echo "Erro: O arquivo /tmp/google-credentials.json não é um JSON válido!"
+            exit 1
+          fi
 
       - name: Configurar a autenticação com Google API
         run: |
-          # Configuração do Google Cloud SDK
-          curl https://sdk.cloud.google.com | bash
+          # Instalar Google Cloud SDK
+          curl -s https://sdk.cloud.google.com > install_gcloud.sh
+          bash install_gcloud.sh --disable-prompts
           source $HOME/google-cloud-sdk/path.bash.inc
+          # Verificar se o arquivo de credenciais existe e não está vazio
+          if [ ! -s /tmp/google-credentials.json ]; then
+            echo "Erro: Arquivo de credenciais vazio ou não encontrado!"
+            exit 1
+          fi
+          # Tentar autenticar
           gcloud auth activate-service-account --key-file /tmp/google-credentials.json
+          # Verificar autenticação
+          gcloud auth list
 
       - name: Gerar Sitemap.xml
         run: |
           echo '<?xml version="1.0" encoding="UTF-8"?>' > sitemap.xml
           echo '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' >> sitemap.xml
           
-          # Adicione os URLs específicos que você deseja indexar
           urls=(
             "https://www.resultadosdojogo.com/resultado-maluca-bahia-de-hoje.html"
             "https://www.resultadosdojogo.com/resultado-paratodos-bahia-de-hoje.html"
@@ -71,10 +88,7 @@ jobs:
 
       - name: Enviar URLs para reindexação na API do Google
         run: |
-          # Usar a chave de autenticação com a conta de serviço para enviar as URLs diretamente para o Google Indexing API
           ACCESS_TOKEN=$(gcloud auth application-default print-access-token)
-
-          # Enviar URLs para a API de indexação do Google
           for url in "${urls[@]}"; do
             curl -X POST "https://indexing.googleapis.com/v3/urlNotifications:publish" \
               -H "Content-Type: application/json" \
