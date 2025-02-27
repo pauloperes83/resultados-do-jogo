@@ -1,11 +1,11 @@
-name: Atualizar Sitemap
+name: Atualizar Sitemap e Indexar
 
 on:
   push:
     branches:
       - main
   schedule:
-    - cron: "0 3 * * *"  # Executa todos os dias às 03:00 UTC
+    - cron: "0 3 * * *"  # Executa todo dia às 03:00 UTC
 
 jobs:
   update_sitemap:
@@ -20,42 +20,48 @@ jobs:
           git config --global user.name "github-actions"
           git config --global user.email "github-actions@github.com"
 
-      - name: Gerar Sitemap.xml Apenas com Páginas Específicas
+      - name: Adicionar e configurar as credenciais da conta de serviço do Google
+        run: |
+          echo "${{ secrets.GOOGLE_CREDENTIALS }}" > /tmp/google-credentials.json
+
+      - name: Configurar a autenticação com Google API
+        run: |
+          # Configuração do Google Cloud SDK
+          curl https://sdk.cloud.google.com | bash
+          source $HOME/google-cloud-sdk/path.bash.inc
+          gcloud auth activate-service-account --key-file /tmp/google-credentials.json
+
+      - name: Gerar Sitemap.xml
         run: |
           echo '<?xml version="1.0" encoding="UTF-8"?>' > sitemap.xml
           echo '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' >> sitemap.xml
           
-          # Lista de páginas específicas que devem ser incluídas
-          paginas_especificas=(
-            "resultado-maluca-bahia-de-hoje.html"
-            "resultado-paratodos-bahia-de-hoje.html"
-            "resultado-loteria-nacional-de-hoje.html"
-            "resultado-look-goias-de-hoje.html"
-            "resultado-lotep-pb-de-hoje.html"
-            "resultado-paratodos-pb-de-hoje.html"
-            "resultado-pt-rio-de-hoje.html"
-            "resultado-pt-sp-de-hoje.html"
-            "resultado-bandeirantes-sp-de-hoje.html"
-            "resultado-lotece-ceara-de-hoje.html"
-            "resultado-lbr-brasilia-de-hoje.html"
-            "resultado-minas-mg-de-hoje.html"
-            "resultado-bicho-rs-de-hoje.html"
-            "resultado-abaese-itabaiana-paratodos-de-hoje.html"
-            "resultado-aval-pernambuco-de-hoje.html"
-            "resultado-caminho-da-sorte-pe-de-hoje.html"
-            "resultado-cooperativa-de-petrolina-de-hoje.html"
-            "resultado-alianca-pe-de-hoje.html"
-            "resultado-loteria-popular-de-hoje.html"
-            "resultado-nordeste-monte-carlos-pe-de-hoje.html"
+          # Adicione os URLs específicos que você deseja indexar
+          urls=(
+            "https://www.resultadosdojogo.com/resultado-maluca-bahia-de-hoje.html"
+            "https://www.resultadosdojogo.com/resultado-paratodos-bahia-de-hoje.html"
+            "https://www.resultadosdojogo.com/resultado-loteria-nacional-de-hoje.html"
+            "https://www.resultadosdojogo.com/resultado-look-goias-de-hoje.html"
+            "https://www.resultadosdojogo.com/resultado-lotep-pb-de-hoje.html"
+            "https://www.resultadosdojogo.com/resultado-paratodos-pb-de-hoje.html"
+            "https://www.resultadosdojogo.com/resultado-pt-rio-de-hoje.html"
+            "https://www.resultadosdojogo.com/resultado-pt-sp-de-hoje.html"
+            "https://www.resultadosdojogo.com/resultado-bandeirantes-sp-de-hoje.html"
+            "https://www.resultadosdojogo.com/resultado-lotece-ceara-de-hoje.html"
+            "https://www.resultadosdojogo.com/resultado-lbr-brasilia-de-hoje.html"
+            "https://www.resultadosdojogo.com/resultado-minas-mg-de-hoje.html"
+            "https://www.resultadosdojogo.com/resultado-bicho-rs-de-hoje.html"
+            "https://www.resultadosdojogo.com/resultado-abaese-itabaiana-paratodos-de-hoje.html"
+            "https://www.resultadosdojogo.com/resultado-aval-pernambuco-de-hoje.html"
+            "https://www.resultadosdojogo.com/resultado-caminho-da-sorte-pe-de-hoje.html"
+            "https://www.resultadosdojogo.com/resultado-cooperativa-de-petrolina-de-hoje.html"
+            "https://www.resultadosdojogo.com/resultado-alianca-pe-de-hoje.html"
+            "https://www.resultadosdojogo.com/resultado-loteria-popular-de-hoje.html"
+            "https://www.resultadosdojogo.com/resultado-nordeste-monte-carlos-pe-de-hoje.html"
           )
 
-          # Obter a data atual em formato YYYY-MM-DD
-          data_atual=$(date +'%Y-%m-%d')
-
-          # Adicionar somente as páginas específicas ao sitemap
-          for pagina in "${paginas_especificas[@]}"; do
-            url="https://www.resultadosdojogo.com/$pagina"
-            echo "  <url><loc>$url</loc><lastmod>$data_atual</lastmod><changefreq>daily</changefreq><priority>1.0</priority></url>" >> sitemap.xml
+          for url in "${urls[@]}"; do
+            echo "  <url><loc>$url</loc><lastmod>$(date --utc +'%Y-%m-%dT%H:%M:%SZ')</lastmod></url>" >> sitemap.xml
           done
           
           echo '</urlset>' >> sitemap.xml
@@ -63,7 +69,20 @@ jobs:
           # Exibir o conteúdo do sitemap para debug
           cat sitemap.xml
 
-      - name: Commit e Push se houver mudanças
+      - name: Enviar URLs para reindexação na API do Google
+        run: |
+          # Usar a chave de autenticação com a conta de serviço para enviar as URLs diretamente para o Google Indexing API
+          ACCESS_TOKEN=$(gcloud auth application-default print-access-token)
+
+          # Enviar URLs para a API de indexação do Google
+          for url in "${urls[@]}"; do
+            curl -X POST "https://indexing.googleapis.com/v3/urlNotifications:publish" \
+              -H "Content-Type: application/json" \
+              -H "Authorization: Bearer $ACCESS_TOKEN" \
+              -d "{\"url\": \"$url\", \"type\": \"URL_UPDATED\"}"
+          done
+
+      - name: Commit e Push se houver mudanças no sitemap
         run: |
           git add sitemap.xml
           if git diff --staged --quiet; then
@@ -72,7 +91,3 @@ jobs:
             git commit -m "Atualizando sitemap.xml automaticamente"
             git push
           fi
-
-      - name: Enviar Sitemap para o Google
-        run: |
-          curl "https://www.google.com/ping?sitemap=https://www.resultadosdojogo.com/sitemap.xml"
