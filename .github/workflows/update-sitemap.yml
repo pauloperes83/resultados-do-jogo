@@ -5,7 +5,7 @@ on:
     branches:
       - main
   schedule:
-    - cron: "0 3 * * *"  # Executa todo dia às 03:00 UTC
+    - cron: "0 2 * * *"  # Executa todo dia às 03:00 UTC
 
 jobs:
   update_sitemap:
