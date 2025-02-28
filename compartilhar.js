@@ -7,13 +7,13 @@
             
             let cabecalho = tabela.querySelector('thead tr');
             let colunasCabecalho = cabecalho.querySelectorAll('th');
-            let cabecalhoTexto = Array.from(colunasCabecalho).map(th => th.innerText).join(' - ');
+            let cabecalhoTexto = Array.from(colunasCabecalho).map(th => th.innerText).join('  -  ');
             texto += cabecalhoTexto + "\n";
             
             let linhas = tabela.querySelectorAll('tbody tr');
             linhas.forEach(linha => {
                 let colunas = linha.querySelectorAll('td');
-                let linhaTexto = Array.from(colunas).map(td => td.innerText).join(' - ');
+                let linhaTexto = Array.from(colunas).map(td => td.innerText).join('  -  ');
                 texto += linhaTexto + "\n";
             });
             
