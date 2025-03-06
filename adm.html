@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Painel do Administrador</title>
+    <style>
+        #clientes { float: left; width: 20%; padding: 10px; border-right: 1px solid #ccc; }
+        #chat { height: 400px; overflow-y: scroll; border: 1px solid #ccc; width: 70%; padding: 10px; }
+        #mensagem { width: 60%; padding: 5px; }
+        button { padding: 5px 10px; }
+        .cliente { cursor: pointer; }
+        .online { color: green; }
+        .offline { color: red; }
+    </style>
+</head>
+<body>
+    <h2>Painel do Administrador</h2>
+    <div id="clientes"><h3>Clientes</h3></div>
+    <div id="chat"></div>
+    <input type="text" id="mensagem" placeholder="Digite sua resposta">
+    <button onclick="enviarMensagem()">Enviar</button>
+
+    <!-- Firebase SDK v11.4.0 -->
+    <script type="module">
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/11.4.0/firebase-app.js';
+        import { getAuth, signInWithEmailAndPassword } from 'https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js';
+        import { getDatabase, ref, push, set, onValue } from 'https://www.gstatic.com/firebasejs/11.4.0/firebase-database.js';
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyA1C3iYQe22zhTP5HVj19atOZLROtba3rw",
+            authDomain: "jogo-do-bicho-421ff.firebaseapp.com",
+            databaseURL: "https://jogo-do-bicho-421ff-default-rtdb.firebaseio.com",
+            projectId: "jogo-do-bicho-421ff",
+            storageBucket: "jogo-do-bicho-421ff.firebasestorage.app",
+            messagingSenderId: "1023919123583",
+            appId: "1:1023919123583:web:b6c561fb121fe54f9e234a",
+            measurementId: "G-BPH150V2SG"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getDatabase(app);
+
+        signInWithEmailAndPassword(auth, 'dantasrcz@gmail.com', 'Rl2a93a7!#$*').then((user) => {
+            const adminId = user.user.uid;
+            const adminStatusRef = ref(db, 'status/admin');
+            let clienteSelecionado = null;
+
+            // Definir status do admin como online
+            set(adminStatusRef, { online: true });
+            window.onunload = () => set(adminStatusRef, { online: false });
+
+            // Listar clientes em tempo real
+            const statusRef = ref(db, 'status');
+            onValue(statusRef, (snapshot) => {
+                const clientes = snapshot.val() || {};
+                const clientesDiv = document.getElementById('clientes');
+                clientesDiv.innerHTML = '<h3>Clientes</h3>';
+                for (let id in clientes) {
+                    if (id !== 'admin') {
+                        const status = clientes[id].online ? 'Online' : 'Offline';
+                        clientesDiv.innerHTML += `<p class="cliente ${clientes[id].online ? 'online' : 'offline'}" onclick="selecionarCliente('${id}')">${id} - ${status}</p>`;
+                    }
+                }
+            }, (error) => {
+                console.error("Erro ao listar clientes:", error);
+            });
+
+            // Selecionar cliente e carregar todas as mensagens
+            window.selecionarCliente = function(id) {
+                clienteSelecionado = id;
+                const mensagensRef = ref(db, 'mensagens/' + id);
+                const chat = document.getElementById('chat');
+                chat.innerHTML = `<h3>Chat com ${id}</h3>`;
+
+                // Carregar e atualizar mensagens em tempo real
+                onValue(mensagensRef, (snapshot) => {
+                    const mensagens = snapshot.val() || {};
+                    chat.innerHTML = `<h3>Chat com ${id}</h3>`;
+                    for (let key in mensagens) {
+                        const msg = mensagens[key];
+                        chat.innerHTML += `<p><b>${msg.de === 'cliente' ? 'Cliente' : 'Você'}:</b> ${msg.texto}</p>`;
+                    }
+                    chat.scrollTop = chat.scrollHeight;
+                }, (error) => {
+                    console.error("Erro ao carregar mensagens:", error);
+                    chat.innerHTML += `<p>Erro ao carregar mensagens.</p>`;
+                });
+            };
+
+            // Enviar mensagem para o cliente selecionado
+            window.enviarMensagem = function() {
+                const texto = document.getElementById('mensagem').value;
+                if (texto && clienteSelecionado) {
+                    const mensagensRef = ref(db, 'mensagens/' + clienteSelecionado);
+                    push(mensagensRef, {
+                        texto: texto,
+                        de: 'admin',
+                        timestamp: Date.now()
+                    });
+                    document.getElementById('mensagem').value = '';
+                }
+            };
+        }).catch((error) => {
+            console.error("Erro no login do admin:", error);
+            alert("Erro ao logar como admin: " + error.message);
+        });
+    </script>
+</body>
+</html>
