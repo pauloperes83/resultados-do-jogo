@@ -17,37 +17,37 @@
     <button onclick="enviarMensagem()">Enviar</button>
     <p>Status do Suporte: <span id="status">Offline</span></p>
 
-    <!-- Firebase SDK -->
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js"></script>
-    <script>
-        // Configuração do Firebase (substitua pelo seu)
-  const firebaseConfig = {
-    apiKey: "AIzaSyA1C3iYQe22zhTP5HVj19atOZLROtba3rw",
-    authDomain: "jogo-do-bicho-421ff.firebaseapp.com",
-    databaseURL: "https://jogo-do-bicho-421ff-default-rtdb.firebaseio.com",
-    projectId: "jogo-do-bicho-421ff",
-    storageBucket: "jogo-do-bicho-421ff.firebasestorage.app",
-    messagingSenderId: "1023919123583",
-    appId: "1:1023919123583:web:b6c561fb121fe54f9e234a",
-    measurementId: "G-BPH150V2SG"
-  };
-        firebase.initializeApp(firebaseConfig);
-        const db = firebase.database();
+    <!-- Firebase SDK v11.4.0 -->
+    <script type="module">
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/11.4.0/firebase-app.js';
+        import { getAuth, signInAnonymously } from 'https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js';
+        import { getDatabase, ref, push, onChildAdded, set, onValue } from 'https://www.gstatic.com/firebasejs/11.4.0/firebase-database.js';
 
-        // Autenticação anônima
-        firebase.auth().signInAnonymously().then((user) => {
-            const clienteId = user.user.uid; // UID único do cliente
-            const mensagensRef = db.ref('mensagens/' + clienteId);
-            const statusRef = db.ref('status/' + clienteId);
-            const adminStatusRef = db.ref('status/admin');
+        const firebaseConfig = {
+            apiKey: "AIzaSyA1C3iYQe22zhTP5HVj19atOZLROtba3rw",
+            authDomain: "jogo-do-bicho-421ff.firebaseapp.com",
+            databaseURL: "https://jogo-do-bicho-421ff-default-rtdb.firebaseio.com",
+            projectId: "jogo-do-bicho-421ff",
+            storageBucket: "jogo-do-bicho-421ff.firebasestorage.app",
+            messagingSenderId: "1023919123583",
+            appId: "1:1023919123583:web:b6c561fb121fe54f9e234a",
+            measurementId: "G-BPH150V2SG"
+        };
 
-            // Enviar mensagem
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getDatabase(app);
+
+        signInAnonymously(auth).then((user) => {
+            const clienteId = user.user.uid;
+            const mensagensRef = ref(db, 'mensagens/' + clienteId);
+            const statusRef = ref(db, 'status/' + clienteId);
+            const adminStatusRef = ref(db, 'status/admin');
+
             window.enviarMensagem = function() {
                 const texto = document.getElementById('mensagem').value;
                 if (texto) {
-                    mensagensRef.push({
+                    push(mensagensRef, {
                         texto: texto,
                         de: 'cliente',
                         timestamp: Date.now()
@@ -56,20 +56,17 @@
                 }
             };
 
-            // Exibir mensagens em tempo real
-            mensagensRef.on('child_added', (snapshot) => {
+            onChildAdded(mensagensRef, (snapshot) => {
                 const msg = snapshot.val();
                 const chat = document.getElementById('chat');
                 chat.innerHTML += `<p><b>${msg.de === 'cliente' ? 'Você' : 'Suporte'}:</b> ${msg.texto}</p>`;
                 chat.scrollTop = chat.scrollHeight;
             });
 
-            // Detectar status do cliente
-            statusRef.set({ online: true });
-            window.onunload = () => statusRef.set({ online: false });
+            set(statusRef, { online: true });
+            window.onunload = () => set(statusRef, { online: false });
 
-            // Mostrar status do admin
-            adminStatusRef.on('value', (snapshot) => {
+            onValue(adminStatusRef, (snapshot) => {
                 const status = snapshot.val()?.online ? 'Online' : 'Offline';
                 document.getElementById('status').textContent = status;
                 document.getElementById('status').style.color = snapshot.val()?.online ? 'green' : 'red';
