@@ -41,7 +41,7 @@
         const auth = getAuth(app);
         const db = getDatabase(app);
 
-        signInWithEmailAndPassword(auth, 'dantasrcz@gmail.com', 'Rl2a93a7!#$*').then((user) => {
+        signInWithEmailAndPassword(auth, 'resultadosfacil@gmail.com', 'Rl2a93a7!#$*').then((user) => {
             const adminId = user.user.uid;
             const adminStatusRef = ref(db, 'status/admin');
             let clienteSelecionado = null;
