@@ -67,7 +67,7 @@ def generate_updated_daily_sitemap():
         url_elem = ET.SubElement(root, "url")
         ET.SubElement(url_elem, "loc").text = url
         ET.SubElement(url_elem, "lastmod").text = today
-        ET.SubElement(url_elem, "changefreq").text = "daily"
+        ET.SubElement(url_elem, "changefreq").text = "always"
         ET.SubElement(url_elem, "priority").text = "1.0"
     
     with open(f"{SITEMAPS_DIR}/updated-daily.xml", "w", encoding="utf-8") as f:
@@ -89,7 +89,7 @@ def generate_new_daily_sitemap():
         ET.SubElement(url_elem, "loc").text = f"{BASE_URL}/{directory}/{date_str}.html"
         ET.SubElement(url_elem, "lastmod").text = yesterday_iso
         ET.SubElement(url_elem, "changefreq").text = "daily"
-        ET.SubElement(url_elem, "priority").text = "0.8"
+        ET.SubElement(url_elem, "priority").text = "0.9"
     
     new_file = f"{SITEMAPS_DIR}/new-daily-{today_str}.xml"
     with open(new_file, "w", encoding="utf-8") as f:
