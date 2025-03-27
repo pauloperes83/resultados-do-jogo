@@ -20,12 +20,13 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install xml.etree.ElementTree
 
       - name: Generate sitemaps
         run: python generate_sitemap.py
 
       - name: Commit and push changes
+        env:
+          GITHUB_TOKEN: ${{ secrets.PAT }}  # Use seu PAT aqui
         run: |
           git config --global user.name "GitHub Actions"
           git config --global user.email "actions@github.com"
