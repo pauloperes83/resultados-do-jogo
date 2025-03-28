@@ -9,17 +9,27 @@ document.addEventListener("DOMContentLoaded", function() {
             </div>
             <p class="footer-text">Esclarecemos que não temos vínculo com o serviço ou pessoas que operam o Jogo do Bicho e que os resultados e estatísticas são meramente informativos.</p>
             <div class="footer-social">
-                <a href="https://www.instagram.com/acertosonline/" class="social-icon" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                <a href="https://www.facebook.com/QuabraBanca/" class="social-icon" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-                <a href="https://x.com/AcertosOnlineJB" class="social-icon" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-                <a href="https://www.youtube.com/@AcertosOnline" class="social-icon" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
-                <a href="https://br.pinterest.com/acertosonline/" class="social-icon" aria-label="Pinterest"><i class="fab fa-pinterest"></i></a>
+                <a href="https://www.instagram.com/acertosonline/" class="social-icon" aria-label="Instagram">
+                    <img src="icons/svg/instagram.svg" alt="Instagram">
+                </a>
+                <a href="https://www.facebook.com/QuabraBanca/" class="social-icon" aria-label="Facebook">
+                    <img src="icons/svg/facebook.svg" alt="Facebook">
+                </a>
+                <a href="https://x.com/AcertosOnlineJB" class="social-icon" aria-label="Twitter">
+                    <img src="icons/svg/x-twitter.svg" alt="Twitter">
+                </a>
+                <a href="https://www.youtube.com/@AcertosOnline" class="social-icon" aria-label="YouTube">
+                    <img src="icons/svg/youtube.svg" alt="YouTube">
+                </a>
+                <a href="https://br.pinterest.com/acertosonline/" class="social-icon" aria-label="Pinterest">
+                    <img src="icons/svg/pinterest.svg" alt="Pinterest">
+                </a>
             </div>
             <nav class="footer-links">
-                <a href="/sobre.html">Sobre nós</a>
-                <a href="/contato.html">Contato</a>
-                <a href="/politicas-de-privacidade.html">Política de Privacidade</a>
-                <a href="/termos-de-uso.html">Termos de Uso</a>
+                <a href="/sobre">Sobre nós</a>
+                <a href="/contato">Contato</a>
+                <a href="/politicas-de-privacidade">Política de Privacidade</a>
+                <a href="/termos-de-uso">Termos de Uso</a>
             </nav>
             <p class="footer-copyright">&copy; <span id="year"></span> Resultados do Jogo. Todos os direitos reservados.</p>
             <div class="footer-spacing"></div>
