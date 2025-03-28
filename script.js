@@ -32,15 +32,6 @@ function shareTable(button) {
     }
 }
 
-// Remove o '.html' da URL ao carregar a página
-window.addEventListener('load', function() {
-    // Remove o '.html' da URL
-    let currentUrl = window.location.pathname;
-    if (currentUrl.endsWith('.html')) {
-        let newUrl = currentUrl.replace('.html', '');
-        window.history.replaceState({}, document.title, newUrl);
-    }
-
     // Registro do Service Worker (movido para dentro do 'load' para consistência)
     if ('serviceWorker' in navigator) {
         navigator.serviceWorker.register('/service-worker.js')
