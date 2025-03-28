@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 <a href="https://www.instagram.com/acertosonline/" class="social-icon" aria-label="Instagram">
                     <img src="icons/svg/instagram.svg" alt="Instagram">
                 </a>
-                <a href="https://www.facebook.com/QuabraBanca/" class="social-icon" aria-label="Facebook">
+                <a href="https://www.facebook.com/profile.php?id=61574449720921" class="social-icon" aria-label="Facebook">
                     <img src="icons/svg/facebook.svg" alt="Facebook">
                 </a>
                 <a href="https://x.com/AcertosOnlineJB" class="social-icon" aria-label="Twitter">
