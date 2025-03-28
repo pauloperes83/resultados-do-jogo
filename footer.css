@@ -2,43 +2,39 @@
 .footer-container {
     max-width: 1200px;
     margin: auto;
+    text-align: center;
 }
 
 /* Links dentro do rodapé */
 .footer-links a {
-    color: #fff !important; /* Garantindo que os links sejam brancos */
+    color: #fff !important;
     margin: 0 15px;
     text-decoration: none;
 }
 
 .footer-links a:hover {
-    text-decoration: underline !important; /* Garantindo que o efeito de hover funcione */
+    text-decoration: underline !important;
 }
 
 /* Estilo dos ícones de redes sociais */
 .footer-social {
     margin: 25px 0;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
 }
 
-.social-icon {
-    color: #fff !important; /* Garantindo que os ícones sejam brancos */
-    font-size: 20px;
-    margin: 0 10px;
+.social-icon img {
+    width: 24px;
+    height: 24px;
+    filter: invert(100%);
 }
 
 /* Texto e outros elementos do rodapé */
-.footer-text, .footer-copyright, .footer-app {
+.footer-text, .footer-copyright {
     margin-top: 30px;
     font-size: 14px;
-}
-
-.footer-app a {
-    color: #ffcc00 !important; /* Garantindo que o link "Acesse nosso aplicativo" seja amarelo */
-    text-decoration: none;
-}
-
-.footer-app a:hover {
-    text-decoration: underline !important; /* Garantindo que o efeito de hover funcione */
+    color: #fff;
 }
 
 /* Espaçamento adicional */
@@ -59,7 +55,7 @@
     }
 }
 
-/* Estilos para computadores (largura maior que 768px) */
+/* Estilos para computadores */
 @media (min-width: 769px) {
     .footer-links {
         display: flex;
