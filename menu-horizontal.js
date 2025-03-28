@@ -9,7 +9,7 @@ function toggleMenu() {
 function toggleSubmenu(event, element, isSubitem) {
     event.stopPropagation();
     let submenu = element.querySelector('ul');
-    let icon = element.querySelector('.menu-arrow i');
+    let icon = element.querySelector('.menu-arrow img');
     let parentMenu = element.closest('.menu, .submenu');
 
     if (!isSubitem) {
@@ -33,8 +33,9 @@ function toggleSubmenu(event, element, isSubitem) {
     if (submenu) {
         let isVisible = submenu.style.display === 'block';
         submenu.style.display = isVisible ? 'none' : 'block';
-        icon.classList.toggle('fa-chevron-down', isVisible);
-        icon.classList.toggle('fa-chevron-up', !isVisible);
+        if (icon) {
+            icon.src = isVisible ? '/icons/svg/chevron-down.svg' : '/icons/svg/chevron-up.svg';
+        }
     }
 }
 
@@ -46,10 +47,9 @@ function resetMenu() {
 }
 
 function resetArrow(element) {
-    let icon = element.querySelector('.menu-arrow i');
+    let icon = element.querySelector('.menu-arrow img');
     if (icon) {
-        icon.classList.remove('fa-chevron-up');
-        icon.classList.add('fa-chevron-down');
+        icon.src = '/icons/svg/chevron-down.svg';
     }
 }
 

@@ -1,26 +1,28 @@
-        body { font-family: 'Roboto', sans-serif; margin: 0; padding: 0; }
-        .menu-container { background: #333; padding: 0px 20px; color: white; position: fixed; top: 0; width: 100%; z-index: 1000; display: flex; align-items: center; }
-        .menu-title { font-size: 18px; font-weight: bold; color: white; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-left: 15px; display: flex; align-items: center;}
-        .menu { list-style: none; padding: 0; margin: 0; flex-grow: 1; display: flex; justify-content: space-evenly; margin-right: 60px;}
-        .menu li { position: relative; padding: 12px; cursor: pointer; color: white; display: flex; align-items: left;}
-	.menu li img, .submenu li img, .subsubmenu li img {width: 16px; height: auto; margin-right: 8px; vertical-align: middle}
-        .menu li:hover { background: black;}
-	.submenu, .subsubmenu { display: none; position: absolute; background: white; list-style: none; padding: 0; margin: 0; width: auto; min-width: 150px; white-space: nowrap; left: 0; top: 100%; border: 1px solid #333;}
-        .submenu li, .subsubmenu li { padding: 8px; cursor: pointer; color: black; position: relative; }
-        .submenu li:hover, .subsubmenu li:hover { background: #f0f0f0; }
-        .subsubmenu { left: 100%; top: 0; background: white; }
-        .menu-icon { display: none; cursor: pointer; font-size: 24px; color: white; margin-left: auto; }
-        
+body {font-family: 'Roboto', sans-serif; margin: 0; padding: 0;}
+.menu-container {background: #333; padding: 0px 20px; color: white; position: fixed; top: 0; width: 100%; z-index: 1000; display: flex; align-items: center;}
+.menu-title {font-size: 18px; font-weight: bold; color: white; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-left: 15px; display: flex; align-items: center;}
+.menu-title img {width: 27px; height: 18px; margin-left: 20px; vertical-align: middle; cursor: pointer; filter: brightness(0) invert(1) contrast(1.2); image-rendering: crisp-edges;}
+.menu {list-style: none; padding: 0; margin: 0; flex-grow: 1; display: flex; justify-content: space-evenly; margin-right: 60px;}
+.menu li {position: relative; padding: 12px; cursor: pointer; color: white; display: flex; align-items: left;}
+.menu li img[src*=".svg"] {width: 16px; height: 16px; margin-right: 8px; vertical-align: middle; filter: brightness(0) invert(1) contrast(1.2); image-rendering: crisp-edges;}
+.submenu li img[src*=".webp"] {width: 24px; height: 16px; margin-right: 8px; vertical-align: middle; image-rendering: crisp-edges;}
+.submenu li img[src*=".svg"], .subsubmenu li img[src*=".svg"] {width: 16px; height: 16px; margin-right: 8px; vertical-align: middle; filter: brightness(0) contrast(1.2); image-rendering: crisp-edges;}
+.menu li:hover {background: black;}
+.submenu, .subsubmenu {display: none; position: absolute; background: white; list-style: none; padding: 0; margin: 0; width: auto; min-width: 150px; white-space: nowrap; left: 0; top: 100%; border: 1px solid #333;}
+.submenu li, .subsubmenu li {padding: 8px; cursor: pointer; color: black; position: relative;}
+.submenu li:hover, .subsubmenu li:hover {background: #f0f0f0;}
+.subsubmenu {left: 100%; top: 0; background: white;}
+.menu-icon {display: none; cursor: pointer; font-size: 24px; color: white; margin-left: auto;}
 @media (max-width: 1024px) {
-	.menu-container { padding: 10px 5px; justify-content: space-between; background: #333;}
-	.menu { display: none; flex-direction: column; width: 100%; position: absolute; top: 50px; left: 0; background: #333; padding: 10px; box-sizing: border-box;}
-	.menu.active { display: flex; }
-	.menu li { width: 100%; padding: 8px; text-align: left; position: relative; align-items: left; flex-direction: column; display: flex; background: #333; font-size: 16px;}
-	.menu li:hover { background: #333;}
-	.submenu, .subsubmenu { position: relative; width: 100%; background: #333; /* Cor de fundo igual ao menu */padding-left: 15px; left: 0; display: none;}
-	.submenu li, .subsubmenu li {background: #333; color: white;}
-	.submenu li:hover, .subsubmenu li:hover {background: #333;}
-	.menu-icon {display: block; margin-right: 15px;}
-	}
-	.refresh-icon {width: 18px; height: 18px; cursor: pointer; margin-left: 20px; vertical-align: middle;}
-
+.menu-container {padding: 10px 5px; justify-content: space-between; background: #333;}
+.menu {display: none; flex-direction: column; width: 100%; position: absolute; top: 50px; left: 0; background: #333; padding: 10px; box-sizing: border-box;}
+.menu.active {display: flex;}
+.menu li img[src*=".svg"], .subsubmenu li img[src*=".svg"] {width: 16px; height: 16px; margin-right: 8px; vertical-align: middle; filter: brightness(0) invert(1) contrast(1.2); image-rendering: crisp-edges;}
+.menu li {width: 100%; padding: 8px; text-align: left; position: relative; align-items: left; flex-direction: column; display: flex; background: #333; font-size: 16px;}
+.menu li:hover {background: #333;}
+.submenu, .subsubmenu {position: relative; width: 100%; background: #333; padding-left: 15px; left: 0; display: none;}
+.submenu li, .subsubmenu li {background: #333; color: white;}
+.submenu li:hover, .subsubmenu li:hover {background: #333;}
+.menu-icon {display: block; margin-right: 15px;}
+.menu-title img {width: 24px; height: 16px; margin-left: 10px;}
+}
