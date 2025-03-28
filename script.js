@@ -1,3 +1,4 @@
+// Função para compartilhar a tabela
 function shareTable(button) {
     const tableWrapper = button.closest(".table-wrapper");
     const title = tableWrapper.querySelector("h3").innerText;
@@ -31,17 +32,24 @@ function shareTable(button) {
     }
 }
 
+// Remove o '.html' da URL ao carregar a página
+window.addEventListener('load', function() {
+    // Remove o '.html' da URL
+    let currentUrl = window.location.pathname;
+    if (currentUrl.endsWith('.html')) {
+        let newUrl = currentUrl.replace('.html', '');
+        window.history.replaceState({}, document.title, newUrl);
+    }
 
-// 3. Registrando o Service Worker no seu site (script.js)
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/service-worker.js')
-      .then(() => console.log('Service Worker registrado!'))
-      .catch((err) => console.error('Erro no registro do Service Worker:', err));
-  });
-}
+    // Registro do Service Worker (movido para dentro do 'load' para consistência)
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/service-worker.js')
+            .then(() => console.log('Service Worker registrado!'))
+            .catch((err) => console.error('Erro no registro do Service Worker:', err));
+    }
+});
 
-// 4. Criando o botão de instalação
+// Configuração do botão de instalação do PWA
 let deferredPrompt;
 
 window.addEventListener('beforeinstallprompt', (event) => {
@@ -62,13 +70,12 @@ function installPWA() {
     }
 }
 
+// Botão de voltar verificando o domínio
+document.getElementById('backButton').addEventListener('click', function(event) {
+    const previousPage = document.referrer;
+    const currentDomain = window.location.origin;
 
-        // Verifica se a página anterior é do mesmo domínio
-        document.getElementById('backButton').addEventListener('click', function(event) {
-            const previousPage = document.referrer;
-            const currentDomain = window.location.origin;
-
-            if (previousPage.startsWith(currentDomain)) {
-                window.history.back(); // Volta para a página anterior
-            }
-        });
+    if (previousPage.startsWith(currentDomain)) {
+        window.history.back(); // Volta para a página anterior
+    }
+});
