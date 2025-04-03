@@ -326,6 +326,7 @@
             ];
 
             let siteData = {};
+            let currentSite = null; // Variável para rastrear o site atual
 
             let debounceTimeout;
             function debounce(func, wait) {
@@ -344,10 +345,12 @@
                     console.log(`Dados recebidos para ${site}:`, data);
                     siteData[site] = data || {};
                     debouncedRenderMenu();
+                    updateTabs(site); // Atualiza as abas em tempo real
                 }, (error) => {
                     console.error(`Erro ao carregar ${site}:`, error);
                     siteData[site] = {};
                     debouncedRenderMenu();
+                    updateTabs(site);
                 });
             });
 
@@ -473,6 +476,7 @@
 
             window.showSite = function(site) {
                 console.log(`Exibindo detalhes do site ${site}...`, siteData[site]);
+                currentSite = site; // Define o site atual
                 menuDiv.style.display = 'none';
                 siteContentDiv.style.display = 'block';
                 siteDetailsDiv.style.display = 'block';
@@ -495,8 +499,10 @@
                 renderTabContent('Results', site, data);
                 document.getElementById(`Results-${site}`).style.display = 'block';
                 document.querySelector(`.tablinks[onclick*="Results-${site}"]`).classList.add('active');
+
                 if (data.guesses && data.guesses.length > 0) {
                     renderTabContent('Guesses', site, data);
+                    // Ativar a aba "Milhar" por padrão
                     document.getElementById(`Milhar-${site}`).style.display = 'block';
                     document.querySelector(`.tablinks[onclick*="Milhar-${site}"]`).classList.add('active');
                 }
@@ -504,7 +510,7 @@
 
             function renderTabContent(tab, site, data) {
                 const tabDiv = document.getElementById(`${tab}-${site}`);
-                if (tabDiv.innerHTML) return;
+                // Removido "if (tabDiv.innerHTML) return;" para permitir atualizações em tempo real
 
                 if (tab === 'Results') {
                     let html = '';
@@ -615,9 +621,31 @@
                 }
             }
 
+            function updateTabs(site) {
+                const data = siteData[site] || {};
+                if (document.getElementById('site-content').style.display === 'block' && site === currentSite) {
+                    renderTabContent('Results', site, data);
+                    renderTabContent('Guesses', site, data);
+                    renderTabContent('Comparisons', site, data);
+                    // Manter a aba ativa visível
+                    const activeTab = document.querySelector(`.tablinks.active[onclick*="${site}"]`);
+                    if (activeTab) {
+                        const tabName = activeTab.getAttribute('onclick').match(/'([^']+)'/)[1];
+                        document.getElementById(tabName).style.display = 'block';
+                    }
+                    // Manter a subaba ativa visível (para Guesses)
+                    const activeSubTab = document.querySelector(`.tablinks.active[onclick*="openSubTab"][onclick*="${site}"]`);
+                    if (activeSubTab) {
+                        const subTabName = activeSubTab.getAttribute('onclick').match(/'([^']+)'/)[1];
+                        document.getElementById(subTabName).style.display = 'block';
+                    }
+                }
+            }
+
             backToMenu.onclick = function() {
                 menuDiv.style.display = 'block';
                 siteContentDiv.style.display = 'none';
+                currentSite = null; // Limpa o site atual ao voltar ao menu
             };
 
             window.openTab = function(evt, tabName, site) {
@@ -636,6 +664,13 @@
                 renderTabContent(tabName.split('-')[0], site, siteData[site]);
                 document.getElementById(tabName).style.display = "block";
                 evt.currentTarget.className += " active";
+
+                // Ativar a aba "Milhar" por padrão ao abrir a aba "Guesses"
+                if (tabName === `Guesses-${site}` && siteData[site].guesses && siteData[site].guesses.length > 0) {
+                    document.getElementById(`Milhar-${site}`).style.display = 'block';
+                    const milharTab = document.querySelector(`.tablinks[onclick*="Milhar-${site}"]`);
+                    if (milharTab) milharTab.classList.add('active');
+                }
             };
 
             window.openSubTab = function(evt, tabName, site) {
