@@ -262,10 +262,28 @@
                 font-size: 1.2em;
             }
         }
+        .nav-links {
+            display: flex;
+            gap: 40px; /* Espaçamento entre os links */
+            font-size: 16px;
+            margin-left: 40px; /* Espaçamento à esquerda dos links */
+	    margin-bottom: 20px;
+        }
+        .nav-links a {
+            text-decoration: none; /* Remove o sublinhado padrão */
+            color: #6c757d; /* Cor cinza para os links */
+        }
+        .nav-links a:hover {
+            text-decoration: underline; /* Adiciona sublinhado ao passar o mouse */
+        }
     </style>
 </head>
 <body>
-    <h1>Resultados e palpites em Tempo Real</h1>
+    <div class="nav-links">
+        <a href="javascript:history.back()">Voltar</a>
+        <a href="/">Página Inicial</a>
+    </div>
+    <h1>Resultados e palpites em Tempo Real para o Jogo do Bicho</h1>
     <div id="menu">
         <div class="card-container" id="card-container">Carregando...</div>
     </div>
