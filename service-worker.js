@@ -21,6 +21,8 @@ const urlsToCache = [
     '/icons/icon-rs.webp',
     '/icons/icon-sj.webp',
     '/icons/icon-sp.webp',
+    '/cards/acertosclub.webp',
+    '/cards/aguiaoficial.webp',
     '/icons/share.png',
     '/compartilhamento.jpg',
     '/compartilhar.js',
@@ -32,8 +34,8 @@ const urlsToCache = [
     '/dates.js',
     '/menu-simples-links.js',
     '/banner.js',
-    '/banner-federal.js', // Falta uma vírgula aqui
-    '/dowp-container.js', // Falta uma vírgula aqui
+    '/banner-federal.js',
+    '/dowp-container.js',
     '/styles.css',
     '/footer.css',
     '/menu-horizontal.css',
@@ -47,8 +49,9 @@ self.addEventListener('install', event => {
                 console.log('Opened cache');
                 return cache.addAll(urlsToCache);
             })
+            .catch(error => console.error('Cache installation failed:', error))
     );
-    self.skipWaiting(); // Garante que a nova versão do SW seja ativada imediatamente
+    self.skipWaiting();
 });
 
 // Intercepta as requisições e serve os recursos do cache quando disponíveis
@@ -56,12 +59,13 @@ self.addEventListener('fetch', event => {
     event.respondWith(
         caches.match(event.request)
             .then(response => {
-                // Retorna o recurso do cache se encontrado
                 if (response) {
                     return response;
                 }
-                // Caso contrário, busca na rede
-                return fetch(event.request);
+                return fetch(event.request).catch(() => {
+                    // Opcional: Retornar uma página offline personalizada
+                    return caches.match('/index.html');
+                });
             })
     );
 });
@@ -81,5 +85,5 @@ self.addEventListener('activate', event => {
             );
         })
     );
-    self.clients.claim(); // Garante que o novo SW assuma o controle imediatamente
+    self.clients.claim();
 });
