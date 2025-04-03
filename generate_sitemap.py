@@ -26,7 +26,8 @@ UPDATED_PAGES = [
     "https://resultadosdojogo.com/resultado-cooperativa-de-petrolina-de-hoje.html",
     "https://resultadosdojogo.com/resultado-alianca-pe-de-hoje.html",
     "https://resultadosdojogo.com/resultado-loteria-popular-de-hoje.html",
-    "https://resultadosdojogo.com/resultado-nordeste-monte-carlos-pe-de-hoje.html"
+    "https://resultadosdojogo.com/resultado-nordeste-monte-carlos-pe-de-hoje.html",
+    "https://resultadosdojogo.com/palpites-para-o-jogo-do-bicho"
 ]
 
 DIRECTORIES = [
