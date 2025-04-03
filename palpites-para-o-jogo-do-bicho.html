@@ -403,17 +403,16 @@
                     fragment.appendChild(card);
                 });
 
-                // Adicionando os novos cards com links diretos
                 const aguiaCard = document.createElement('div');
                 aguiaCard.className = 'card card-image';
-                aguiaCard.style.backgroundImage = "url('/cards/aguiaoficial.webp')";
+                aguiaCard.style.backgroundImage = "url('aguiaoficial.webp')";
                 aguiaCard.innerHTML = `<h3>Banca Águia Oficial</h3>`;
                 aguiaCard.onclick = () => window.open('https://aguia-oficial.com/', '_blank');
                 fragment.appendChild(aguiaCard);
 
                 const acertosCard = document.createElement('div');
                 acertosCard.className = 'card card-image';
-                acertosCard.style.backgroundImage = "url('/cards/acertosclub.webp')";
+                acertosCard.style.backgroundImage = "url('acertosclub.webp')";
                 acertosCard.innerHTML = `<h3>Banca Acertos Club</h3>`;
                 acertosCard.onclick = () => window.open('https://acertosonline.com/', '_blank');
                 fragment.appendChild(acertosCard);
@@ -510,14 +509,13 @@
                 if (tab === 'Results') {
                     let html = '';
                     if (data.titles && Object.keys(data.titles).length > 0) {
-                        // Obtém os títulos em ordem inversa e depois ordena por lastUpdated
                         const validTitles = Object.values(data.titles)
-                            .filter(titleData => titleData.latestData && titleData.latestData.length > 1)
-                            .reverse() // Ordem inversa dos títulos recebidos
+                            .filter(titleData => titleData.latestData && titleData.latestData.length > 0)
+                            .reverse()
                             .sort((a, b) => {
                                 const dateA = a.lastUpdated ? new Date(a.lastUpdated) : new Date(0);
                                 const dateB = b.lastUpdated ? new Date(b.lastUpdated) : new Date(0);
-                                return dateB - dateA; // Mais recente primeiro
+                                return dateB - dateA;
                             });
 
                         if (validTitles.length > 0) {
@@ -540,11 +538,14 @@
                                     isToday = (lastUpdated.getTime() === today.getTime()) ? ' (hoje)' : '';
                                 }
 
+                                const fixedHeaders = ["Prêmio", "Milhar", "Grupo", "Bicho"];
+                                const rows = titleData.latestData || [];
+
                                 return `
                                     <div class="table-container">
                                         <h3 class="table-title">${titleData.fixedTitle}</h3>
                                         <p class="result-date">Resultado do dia ${dateStr}, ${dayOfWeek}${isToday}</p>
-                                        ${createTable(titleData.latestData[0] || [], titleData.latestData.slice(1) || [])}
+                                        ${createTable(fixedHeaders, rows)}
                                     </div>
                                 `;
                             }).join('') + '</div>';
