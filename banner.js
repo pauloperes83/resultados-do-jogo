@@ -47,7 +47,7 @@
                             return link;
                         }
 
-                        let link1 = createLink("Jogue online clicando aqui!", "/jogo-do-bicho-online.html");
+                        let link1 = createLink("Jogue online clicando aqui!", "/gordoloterias");
                         let link2 = createLink("Clique aqui para ver os palpites do dia!", "#", function() {
                             let controle = document.getElementById('controle');
                             if (controle) {
