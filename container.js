@@ -160,43 +160,43 @@ function gerarPalpites(palpitesWrapper) {
         palpitesPorGrupo[grupo].push(palpite);
     });
 
-    // Atualiza a interface
+    // Atualiza a interface com cards
     palpitesWrapper.innerHTML = "";
     let subtitulo = document.createElement("h3");
     subtitulo.textContent = "Palpites por Grupo:";
+    subtitulo.style.marginBottom = "15px";
     palpitesWrapper.appendChild(subtitulo);
 
     for (let grupo in palpitesPorGrupo) {
         let grupoDiv = document.createElement("div");
-        grupoDiv.style.marginBottom = "10px";
+        grupoDiv.style.marginBottom = "20px";
         
         let grupoTitulo = document.createElement("h4");
         grupoTitulo.textContent = grupo;
+        grupoTitulo.style.margin = "0 0 10px 0";
         grupoDiv.appendChild(grupoTitulo);
 
         let palpitesDiv = document.createElement("div");
         Object.assign(palpitesDiv.style, {
             display: "flex",
-            gap: "5px",
+            gap: "10px",
             flexWrap: "wrap",
             justifyContent: "center"
         });
 
         palpitesPorGrupo[grupo].forEach(palpite => {
-            let campo = document.createElement("div");
-            Object.assign(campo.style, {
-                textContent: palpite,
-                minWidth: "60px",
+            let card = document.createElement("div");
+            Object.assign(card.style, {
+                width: "60px",
                 height: "40px",
                 lineHeight: "40px",
                 textAlign: "center",
                 border: "1px solid #ccc",
                 borderRadius: "8px",
-                backgroundColor: "white",
                 fontSize: "clamp(12px, 4vw, 16px)"
             });
-            campo.textContent = palpite;
-            palpitesDiv.appendChild(campo);
+            card.textContent = palpite;
+            palpitesDiv.appendChild(card);
         });
 
         grupoDiv.appendChild(palpitesDiv);
