@@ -10,19 +10,19 @@ document.addEventListener("DOMContentLoaded", function() {
             <p class="footer-text">Esclarecemos que não temos vínculo com o serviço ou pessoas que operam o Jogo do Bicho e que os resultados e estatísticas são meramente informativos.</p>
             <div class="footer-social">
                 <a href="https://www.instagram.com/acertosonline/" class="social-icon" aria-label="Instagram">
-                    <img src="icons/svg/instagram.svg" alt="Instagram">
+                    <img src="../icons/svg/instagram.svg" alt="Instagram">
                 </a>
                 <a href="https://www.facebook.com/profile.php?id=61577873735879" class="social-icon" aria-label="Facebook">
-                    <img src="icons/svg/facebook.svg" alt="Facebook">
+                    <img src="../icons/svg/facebook.svg" alt="Facebook">
                 </a>
                 <a href="https://x.com/AcertosOnlineJB" class="social-icon" aria-label="Twitter">
-                    <img src="icons/svg/x-twitter.svg" alt="Twitter">
+                    <img src="../icons/svg/x-twitter.svg" alt="Twitter">
                 </a>
                 <a href="https://www.youtube.com/@AcertosOnline" class="social-icon" aria-label="YouTube">
-                    <img src="icons/svg/youtube.svg" alt="YouTube">
+                    <img src="../icons/svg/youtube.svg" alt="YouTube">
                 </a>
                 <a href="https://br.pinterest.com/acertosonline/" class="social-icon" aria-label="Pinterest">
-                    <img src="icons/svg/pinterest.svg" alt="Pinterest">
+                    <img src="../icons/svg/pinterest.svg" alt="Pinterest">
                 </a>
             </div>
             <nav class="footer-links">
