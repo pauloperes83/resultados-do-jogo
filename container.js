@@ -60,45 +60,12 @@ document.addEventListener("DOMContentLoaded", function() {
 
 function gerarPalpites(palpitesWrapper) {
     let tabelas = document.querySelectorAll(".table-container table");
-    let numeros = [];
+    let palpites = [];
 
-    tabelas.forEach(tabela => {
-        let linhas = tabela.querySelectorAll("tbody tr");
-        linhas.forEach(linha => {
-            let colunas = linha.querySelectorAll("td");
-            if (colunas.length > 1) {
-                let numero = colunas[1].innerText.trim();
-                if (numero.length === 4 && /^\d{4}$/.test(numero)) {
-                    numeros.push(numero);
-                }
-            }
-        });
-    });
-
-    if (numeros.length === 0) {
-        palpitesWrapper.innerHTML = "<p>Nenhum número válido encontrado nas tabelas.</p>";
+    if (tabelas.length === 0) {
+        palpitesWrapper.innerHTML = "<p>Nenhuma tabela encontrada.</p>";
         return;
     }
-
-    function contarFrequencia(posicao) {
-        let frequencia = {};
-        numeros.forEach(numero => {
-            let digito = numero.charAt(posicao);
-            frequencia[digito] = (frequencia[digito] || 0) + 1;
-        });
-        return frequencia;
-    }
-
-    function obterMaisFrequentes(frequencia) {
-        return Object.keys(frequencia)
-            .sort((a, b) => frequencia[b] - frequencia[a])
-            .slice(0, 4); // Limita a 4 dígitos mais frequentes por posição
-    }
-
-    let digitosMilhar = obterMaisFrequentes(contarFrequencia(0));
-    let digitosCentena = obterMaisFrequentes(contarFrequencia(1));
-    let digitosDezena = obterMaisFrequentes(contarFrequencia(2));
-    let digitosUnidade = obterMaisFrequentes(contarFrequencia(3));
 
     const grupos = {
         "Avestruz 🦢": [1, 2, 3, 4],
@@ -128,24 +95,65 @@ function gerarPalpites(palpitesWrapper) {
         "Vaca 🐄": [97, 98, 99, 0]
     };
 
-    // Gera 12 palpites
-    let palpites = [];
-    let combinacoes = [];
-    for (let m of digitosMilhar) {
-        for (let c of digitosCentena) {
-            for (let d of digitosDezena) {
-                for (let u of digitosUnidade) {
-                    combinacoes.push(m + c + d + u);
-                    if (combinacoes.length >= 12) break;
-                }
-                if (combinacoes.length >= 12) break;
-            }
-            if (combinacoes.length >= 12) break;
-        }
-        if (combinacoes.length >= 12) break;
+    function contarFrequencia(numeros, posicao) {
+        let frequencia = {};
+        numeros.forEach(numero => {
+            let digito = numero.charAt(posicao);
+            frequencia[digito] = (frequencia[digito] || 0) + 1;
+        });
+        return frequencia;
     }
 
-    palpites = combinacoes.slice(0, 12);
+    function obterMaisFrequentes(frequencia) {
+        return Object.keys(frequencia)
+            .sort((a, b) => frequencia[b] - frequencia[a])
+            .slice(0, 2); // Limita a 2 dígitos mais frequentes por posição
+    }
+
+    // Processa cada tabela para gerar 2 palpites
+    tabelas.forEach(tabela => {
+        let numeros = [];
+        let linhas = tabela.querySelectorAll("tbody tr");
+        linhas.forEach(linha => {
+            let colunas = linha.querySelectorAll("td");
+            if (colunas.length > 1) {
+                let numero = colunas[1].innerText.trim();
+                if (numero.length === 4 && /^\d{4}$/.test(numero)) {
+                    numeros.push(numero);
+                }
+            }
+        });
+
+        if (numeros.length === 0) return; // Ignora tabelas sem números válidos
+
+        let digitosMilhar = obterMaisFrequentes(contarFrequencia(numeros, 0));
+        let digitosCentena = obterMaisFrequentes(contarFrequencia(numeros, 1));
+        let digitosDezena = obterMaisFrequentes(contarFrequencia(numeros, 2));
+        let digitosUnidade = obterMaisFrequentes(contarFrequencia(numeros, 3));
+
+        // Gera 2 palpites por tabela
+        let combinacoes = [];
+        for (let m of digitosMilhar) {
+            for (let c of digitosCentena) {
+                for (let d of digitosDezena) {
+                    for (let u of digitosUnidade) {
+                        combinacoes.push(m + c + d + u);
+                        if (combinacoes.length >= 2) break;
+                    }
+                    if (combinacoes.length >= 2) break;
+                }
+                if (combinacoes.length >= 2) break;
+            }
+            if (combinacoes.length >= 2) break;
+        }
+
+        palpites.push(...combinacoes.slice(0, 2));
+    });
+
+    if (palpites.length === 0) {
+        palpitesWrapper.innerHTML = "<p>Nenhum palpite gerado.</p>";
+        return;
+    }
 
     // Agrupa palpites por grupo do jogo do bicho
     let palpitesPorGrupo = {};
