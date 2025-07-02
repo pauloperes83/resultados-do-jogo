@@ -1,7 +1,7 @@
     (function() {
         function compartilhar(botao) {
             let tabelaWrapper = botao.closest('.table-wrapper');
-            let titulo = tabelaWrapper.querySelector('h3').innerText;
+            let titulo = tabelaWrapper.querySelector('h2').innerText;
             let tabela = tabelaWrapper.querySelector('table');
             let texto = titulo + "\n\n";
             
