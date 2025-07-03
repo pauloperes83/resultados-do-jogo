@@ -29,4 +29,4 @@ jobs:
         env:
           FB_ACCESS_TOKEN: ${{ secrets.FB_ACCESS_TOKEN }}
           FB_PAGE_ID: ${{ secrets.FB_PAGE_ID }}
-        run: python scripts/post_facebook.py
+        run: python .github/scripts/post_facebook.py
