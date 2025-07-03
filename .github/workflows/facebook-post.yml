@@ -1,7 +1,9 @@
 name: Publicar no Facebook
 
 on:
-  workflow_dispatch:
+  push:
+    paths:
+  - 'index.html'
 
 jobs:
   post_facebook:
@@ -29,7 +31,7 @@ jobs:
 
           page_id = "${{ secrets.FB_PAGE_ID }}"
           access_token = "${{ secrets.FB_ACCESS_TOKEN }}"
-          message = "📢 Novo conteúdo no site Resultados do Jogo! Confira agora em https://resultadosdojogo.com"
+          message = "SAIUUU Resultado do Jogo do Bicho! Confira agora em https://resultadosdojogo.com"
 
           url = f"https://graph.facebook.com/{page_id}/feed"
           payload = {"message": message, "access_token": access_token}
