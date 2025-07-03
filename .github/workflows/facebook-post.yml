@@ -3,39 +3,90 @@ name: Publicar no Facebook
 on:
   push:
     paths:
-  - 'index.html'
+      - 'resultado-*.html'          # qualquer arquivo de resultado alterado
 
 jobs:
   post_facebook:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout do repositório
-        uses: actions/checkout@v3
+    # 1. Obtém o repositório
+    - name: Checkout do repositório
+      uses: actions/checkout@v3
 
-      - name: Configurar Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.x'
+    # 2. Descobre quais arquivos de resultado mudaram nesse push
+    - name: Localizar arquivos de resultado alterados
+      id: diff
+      run: |
+        FILES=$(git diff --name-only "${{ github.event.before }}" "${{ github.sha }}" \
+                | grep '^resultado-.*\.html$' || true)
+        echo "FILES=$FILES" >> "$GITHUB_ENV"
+        echo "Alterados: $FILES"
 
-      - name: Instalar dependências
-        run: |
-          python -m pip install requests
+    # 3. Configura Python
+    - name: Configurar Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.x'
 
-      - name: Publicar post no Facebook
-        env:
-          FB_PAGE_ID: ${{ secrets.FB_PAGE_ID }}
-          FB_ACCESS_TOKEN: ${{ secrets.FB_ACCESS_TOKEN }}
-        run: |
-          python <<EOF
-          import requests
+    # 4. Instala dependências
+    - name: Instalar dependências
+      run: python -m pip install requests
 
-          page_id = "${{ secrets.FB_PAGE_ID }}"
-          access_token = "${{ secrets.FB_ACCESS_TOKEN }}"
-          message = "SAIUUU Resultado do Jogo do Bicho! Confira agora em https://resultadosdojogo.com"
+    # 5. Publica 1-N posts (somente se houve arquivos alterados)
+    - name: Publicar no Facebook
+      if: env.FILES != ''
+      env:
+        FB_PAGE_ID:      ${{ secrets.FB_PAGE_ID }}
+        FB_ACCESS_TOKEN: ${{ secrets.FB_ACCESS_TOKEN }}
+      run: |
+        python <<'PY'
+        import os, re, datetime, requests, textwrap
 
-          url = f"https://graph.facebook.com/{page_id}/feed"
-          payload = {"message": message, "access_token": access_token}
-          r = requests.post(url, data=payload)
-          print("Status:", r.status_code)
-          print("Resposta:", r.text)
-          EOF
+        files = os.environ['FILES'].split()
+        page_id = os.environ['FB_PAGE_ID']
+        token   = os.environ['FB_ACCESS_TOKEN']
+
+        # ---------- dicionário slug  ➜  nome amigável ----------
+        N = {
+            "resultado-loteria-nacional":            "Loteria Nacional",
+            "resultado-maluca-bahia":                "Maluca Bahia",
+            "resultado-paratodos-bahia":             "Paratodos Bahia",
+            "resultado-lotece-loteria-dos-sonhos":   "LOTECE Loteria dos Sonhos",
+            "resultado-look-loterias":               "LOOK Loterias",
+            "resultado-lotep":                       "Lotep",
+            "resultado-paratodos-pb":                "Paratodos PB",
+            "resultado-pt-rio":                      "PT-Rio",
+            "resultado-pt-sp":                       "PT-SP",
+            "resultado-bandeirantes-sp":             "Bandeirantes",
+            "resultado-aval-pernambuco":             "AVAL Pernambuco",
+            "resultado-caminho-da-sorte-pe":         "Caminho da Sorte",
+            "resultado-cooperativa-de-petrolina-pe": "Cooperativa de Petrolina-PE",
+            "resultado-extracao-online-alianca":     "Extração Online Aliança",
+            "resultado-loteria-popular":             "Loteria Popular",
+            "resultado-nordeste-monte-carlos":       "Nordeste Monte Carlos",
+            "resultado-lbr-brasilia":                "LBR Brasília",
+            "resultado-minas-mg":                    "Minas-MG",
+            "resultado-bicho-rs":                    "Bicho-RS",
+            "resultado-abaese-itabaiana-paratodos":  "ABAESE Itabaiana Paratodos"
+        }
+        # -------------------------------------------------------
+
+        today = datetime.datetime.now().strftime('%d/%m/%Y')
+
+        def postar(slug, nome):
+            msg = textwrap.dedent(f"""
+            📢 Resultado {nome} | {today}
+            Veja todos os detalhes em https://resultadosdojogo.com
+            """).strip()
+            url = f"https://graph.facebook.com/{page_id}/feed"
+            r   = requests.post(url, data={"message": msg, "access_token": token})
+            print(f"{nome:40} ➜ {r.status_code} | {r.text[:120]}")
+
+        for path in files:
+            slug = re.sub(r'\.html$', '', os.path.basename(path))
+            if slug in N:
+                postar(slug, N[slug])
+            else:
+                print(f"Ignorado (slug sem mapeamento): {slug}")
+        PY
