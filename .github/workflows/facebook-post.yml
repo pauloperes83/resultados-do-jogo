@@ -13,7 +13,7 @@ jobs:
     - name: Clonar o repositório (com histórico necessário para git diff)
       uses: actions/checkout@v3
       with:
-    fetch-depth: 2
+        fetch-depth: 2        # <-- 2 espaços de recuo em relação a “with:”
 
     - name: Configurar Python
       uses: actions/setup-python@v4
@@ -29,4 +29,4 @@ jobs:
       env:
         FB_ACCESS_TOKEN: ${{ secrets.FB_ACCESS_TOKEN }}
         FB_PAGE_ID: ${{ secrets.FB_PAGE_ID }}
-      run: python scripts/post_facebook.py
+      run: python scripts/post_facebook.py   # ajuste se o script estiver noutro diretório
