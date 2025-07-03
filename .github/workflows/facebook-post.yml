@@ -3,7 +3,8 @@ name: Publicar no Facebook
 on:
   push:
     paths:
-      - '**/*.html'
+      - '**/*.html'     # dispara quando houver commit de arquivos .html
+  workflow_dispatch:     # <-- habilita execução manual pelo botão “Run workflow”
 
 jobs:
   post:
@@ -16,4 +17,7 @@ jobs:
         run: pip install requests python-dotenv
 
       - name: Executar script de postagem
+        env:
+          FB_PAGE_ID:      ${{ secrets.FB_PAGE_ID }}
+          FB_ACCESS_TOKEN: ${{ secrets.FB_ACCESS_TOKEN }}
         run: python .github/scripts/post_facebook.py
