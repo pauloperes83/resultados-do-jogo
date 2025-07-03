@@ -10,8 +10,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Clonar o repositório
+    - name: Clonar o repositório (com histórico necessário para git diff)
       uses: actions/checkout@v3
+      with:
+    fetch-depth: 2
 
     - name: Configurar Python
       uses: actions/setup-python@v4
