@@ -3,33 +3,17 @@ name: Publicar no Facebook
 on:
   push:
     paths:
-      - 'resultado-pt-rio/*.html'
-      - 'resultado-maluca-bahia/*.html'
-      - 'resultado-paratodos-bahia/*.html'
-      - 'resultado-lotece-ceara/*.html'
-      - 'resultado-look-goias/*.html'
-      - 'resultado-lotep-pb/*.html'
-      - 'resultado-paratodos-pb/*.html'
-      - 'resultado-pt-sp/*.html'
-      - 'resultado-bandeirantes-sp/*.html'
-      - 'resultado-aval-pernambuco/*.html'
-      - 'resultado-caminho-da-sorte-pe/*.html'
-      - 'resultado-cooperativa-de-petrolina/*.html'
-      - 'resultado-alianca-pe/*.html'
-      - 'resultado-loteria-popular/*.html'
-      - 'resultado-nordeste-monte-carlos/*.html'
-      - 'resultado-lbr-brasilia/*.html'
-      - 'resultado-minas-mg/*.html'
-      - 'resultado-bicho-rs/*.html'
-      - 'resultado-loteria-nacional/*.html'
-      - 'resultado-abaese-itabaiana-paratodos/*.html'
+      - '**/*.html'
 
 jobs:
   post:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout do código
+        uses: actions/checkout@v4
+
       - name: Instalar dependências
         run: pip install requests python-dotenv
+
       - name: Executar script de postagem
         run: python .github/scripts/post_facebook.py
