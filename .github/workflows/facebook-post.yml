@@ -3,83 +3,33 @@ name: Publicar no Facebook
 on:
   push:
     paths:
-      - 'resultado-*.html'  # Gatilho para qualquer arquivo com nome resultado-*.html
+      - 'resultado-pt-rio/*.html'
+      - 'resultado-maluca-bahia/*.html'
+      - 'resultado-paratodos-bahia/*.html'
+      - 'resultado-lotece-ceara/*.html'
+      - 'resultado-look-goias/*.html'
+      - 'resultado-lotep-pb/*.html'
+      - 'resultado-paratodos-pb/*.html'
+      - 'resultado-pt-sp/*.html'
+      - 'resultado-bandeirantes-sp/*.html'
+      - 'resultado-aval-pernambuco/*.html'
+      - 'resultado-caminho-da-sorte-pe/*.html'
+      - 'resultado-cooperativa-de-petrolina/*.html'
+      - 'resultado-alianca-pe/*.html'
+      - 'resultado-loteria-popular/*.html'
+      - 'resultado-nordeste-monte-carlos/*.html'
+      - 'resultado-lbr-brasilia/*.html'
+      - 'resultado-minas-mg/*.html'
+      - 'resultado-bicho-rs/*.html'
+      - 'resultado-loteria-nacional/*.html'
+      - 'resultado-abaese-itabaiana-paratodos/*.html'
 
 jobs:
-  post_facebook:
+  post:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout do repositório
-        uses: actions/checkout@v3
-
-      - name: Localizar arquivos de resultado alterados
-        id: diff
-        run: |
-          FILES=$(git diff --name-only "${{ github.event.before }}" "${{ github.sha }}" | grep '^resultado-.*\.html$' || true)
-          echo "FILES=$FILES" >> "$GITHUB_ENV"
-          echo "Alterados: $FILES"
-
-      - name: Configurar Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.x'
-
+      - uses: actions/checkout@v4
       - name: Instalar dependências
-        run: python -m pip install requests
-
-      - name: Publicar post no Facebook
-        env:
-          FILES: ${{ env.FILES }}
-          FB_PAGE_ID: ${{ secrets.FB_PAGE_ID }}
-          FB_ACCESS_TOKEN: ${{ secrets.FB_ACCESS_TOKEN }}
-        run: |
-          python <<EOF
-          import os, re, datetime, textwrap
-          import requests
-
-          files = os.environ['FILES'].split()
-          page_id = os.environ['FB_PAGE_ID']
-          token = os.environ['FB_ACCESS_TOKEN']
-
-          N = {
-              "resultado-loteria-nacional": "Loteria Nacional",
-              "resultado-maluca-bahia": "Maluca Bahia",
-              "resultado-paratodos-bahia": "Paratodos Bahia",
-              "resultado-loteria-dos-sonhos": "LOTECE Loteria dos Sonhos",
-              "resultado-look-loterias": "LOOK Loterias",
-              "resultado-lotep": "Lotep",
-              "resultado-paratodos-pb": "Paratodos PB",
-              "resultado-pt-rio": "PT-RIO",
-              "resultado-pt-sp": "PT-SP",
-              "resultado-bandeirantes": "Bandeirantes",
-              "resultado-aval-pernambuco": "AVAL Pernambuco",
-              "resultado-caminho-da-sorte-pe": "Caminho da Sorte",
-              "resultado-cooperativa-de-petrolina-pe": "Cooperativa de Petrolina-PE",
-              "resultado-extracao-online-alianca": "Extração Online Aliança",
-              "resultado-loteria-popular": "Loteria Popular",
-              "resultado-nordeste-monte-carlos": "Nordeste Monte Carlos",
-              "resultado-lbr-brasilia": "LBR Brasília",
-              "resultado-minas-mg": "Minas-MG",
-              "resultado-bicho-rs": "Bicho-RS",
-              "resultado-abaese-itabaiana-paratodos": "ABAESE Itabaiana Paratodos"
-          }
-
-          today = datetime.datetime.now().strftime('%d/%m/%Y')
-
-          def postar(slug, nome):
-              msg = textwrap.dedent(f'''
-              🐘 Resultado {nome} | {today}
-              🔗 Veja todos os detalhes em https://resultadosdojogo.com
-              ''').strip()
-              url = f"https://graph.facebook.com/{page_id}/feed"
-              r = requests.post(url, data={"message": msg, "access_token": token})
-              print(f"{slug} => {r.status_code} | {r.text[:100]}")
-
-          for path in files:
-              slug = re.sub(r'\.html$', '', os.path.basename(path))
-              if slug in N:
-                  postar(slug, N[slug])
-              else:
-                  print(f"Ignorado (slug sem mapeamento): {slug}")
-          EOF
+        run: pip install requests python-dotenv
+      - name: Executar script de postagem
+        run: python .github/scripts/post_facebook.py
