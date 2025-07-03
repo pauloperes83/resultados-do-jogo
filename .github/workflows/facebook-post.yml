@@ -3,8 +3,8 @@ name: Publicar no Facebook
 on:
   push:
     paths:
-      - '**/*.html'     # dispara quando houver commit de arquivos .html
-  workflow_dispatch:     # <-- habilita execução manual pelo botão “Run workflow”
+      - '**/*.html'          # dispara quando qualquer HTML for alterado
+  workflow_dispatch:         # botão "Run workflow"
 
 jobs:
   post:
@@ -12,9 +12,11 @@ jobs:
     steps:
       - name: Checkout do código
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 2     # <-- traz o commit anterior p/ o diff funcionar
 
       - name: Instalar dependências
-        run: pip install requests python-dotenv
+        run: pip install requests
 
       - name: Executar script de postagem
         env:
