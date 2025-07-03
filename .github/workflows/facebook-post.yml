@@ -3,21 +3,25 @@ name: Publicar no Facebook
 on:
   push:
     paths:
-      - '**/*.html'          # dispara quando qualquer HTML for alterado
-  workflow_dispatch:         # botão "Run workflow"
+      - '**/*.html'          # dispara quando qualquer HTML muda
+  workflow_dispatch:         # botão Run workflow manual
 
 jobs:
   post:
     runs-on: ubuntu-latest
     steps:
+      # 1. Checkout com 2 commits p/ diff funcionar
       - name: Checkout do código
         uses: actions/checkout@v4
         with:
-          fetch-depth: 2     # <-- traz o commit anterior p/ o diff funcionar
+          fetch-depth: 2
 
+      # 2. Instalar libs necessárias
       - name: Instalar dependências
-        run: pip install requests
+        run: |
+          pip install requests beautifulsoup4
 
+      # 3. Executar o script que publica
       - name: Executar script de postagem
         env:
           FB_PAGE_ID:      ${{ secrets.FB_PAGE_ID }}
