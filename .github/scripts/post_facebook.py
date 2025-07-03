@@ -1,9 +1,5 @@
 import os
 import requests
-from dotenv import load_dotenv
-
-# Carrega variáveis do ambiente
-load_dotenv()
 
 ACCESS_TOKEN = os.getenv("FB_ACCESS_TOKEN")
 PAGE_ID = os.getenv("FB_PAGE_ID")
@@ -17,7 +13,6 @@ def post_to_facebook(message):
     }
 
     response = requests.post(url, data=payload)
-
     print(f"Status Code: {response.status_code}")
     print(f"Response: {response.text}")
 
