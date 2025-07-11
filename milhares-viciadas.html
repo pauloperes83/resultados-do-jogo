@@ -14,12 +14,12 @@
   <!-- MENU SUPERIOR -->
   <div id="menu-container"></div>
   <script>
-    fetch("/componentes/menu.html")
-      .then(res => res.text())
-      .then(html => {
-        document.getElementById("menu-container").innerHTML = html;
-      });
-  </script>
+  fetch("https://resultadosdojogo.com/componentes/menu.html")
+    .then(res => res.text())
+    .then(html => {
+      document.getElementById("menu-container").innerHTML = html;
+    });
+</script>
 
   <!-- CONTEÚDO PRINCIPAL -->
   <main class="main-content">
