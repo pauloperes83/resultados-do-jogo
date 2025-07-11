@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 <a href="https://www.facebook.com/profile.php?id=61577873735879" class="social-icon" aria-label="Facebook">
                     <img src="../icons/svg/facebook.svg" alt="Facebook">
                 </a>
-                <a href="https://x.com/AcertosOnlineJB" class="social-icon" aria-label="Twitter">
+                <a href="https://x.com/Resultado_jogo" class="social-icon" aria-label="Twitter">
                     <img src="../icons/svg/x-twitter.svg" alt="Twitter">
                 </a>
                 <a href="https://www.youtube.com/@AcertosOnline" class="social-icon" aria-label="YouTube">
