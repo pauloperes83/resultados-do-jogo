@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", function() {
+    console.log("Rodapé carregado com sucesso!");
     const footerContainer = document.getElementById('footer-container');
     
     // Definindo o conteúdo HTML do rodapé
