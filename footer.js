@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", function() {
             </div>
             <p class="footer-text">Esclarecemos que não temos vínculo com o serviço ou pessoas que operam o Jogo do Bicho e que os resultados e estatísticas são meramente informativos.</p>
             <div class="footer-social">
-                <a href="https://www.instagram.com/acertosonline/" class="social-icon" aria-label="Instagram">
+                <a href="https://www.instagram.com/resultados_do_jogo?igsh=MXQ0OWVud25lamp6Nw==" class="social-icon" aria-label="Instagram">
                     <img src="../icons/svg/instagram.svg" alt="Instagram">
                 </a>
                 <a href="https://www.facebook.com/profile.php?id=61577873735879" class="social-icon" aria-label="Facebook">
