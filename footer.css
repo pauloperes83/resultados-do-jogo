@@ -3,6 +3,47 @@
     max-width: 1200px;
     margin: auto;
     text-align: center;
+    background-color: #222;
+    padding: 40px 15px;
+    color: #fff;
+}
+
+/* Logo/título do rodapé */
+.footer-logo {
+    margin-bottom: 15px;
+}
+
+.footer-logo h2 {
+    font-size: 22px;
+    margin: 0;
+    color: #fff;
+}
+
+/* Texto e outros elementos do rodapé */
+.footer-text,
+.footer-copyright {
+    margin-top: 30px;
+    font-size: 14px;
+    color: #fff;
+}
+
+/* Espaçamento adicional */
+.footer-spacing {
+    height: 40px;
+}
+
+/* Estilo dos ícones de redes sociais */
+.footer-social {
+    margin: 25px 0;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.social-icon img {
+    width: 28px;
+    height: 28px;
+    filter: invert(100%);
 }
 
 /* Links dentro do rodapé */
@@ -16,32 +57,6 @@
     text-decoration: underline !important;
 }
 
-/* Estilo dos ícones de redes sociais */
-.footer-social {
-    margin: 25px 0;
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-}
-
-.social-icon img {
-    width: 24px;
-    height: 24px;
-    filter: invert(100%);
-}
-
-/* Texto e outros elementos do rodapé */
-.footer-text, .footer-copyright {
-    margin-top: 30px;
-    font-size: 14px;
-    color: #fff;
-}
-
-/* Espaçamento adicional */
-.footer-spacing {
-    height: 40px;
-}
-
 /* Estilos para dispositivos móveis */
 @media (max-width: 768px) {
     .footer-links {
@@ -50,6 +65,7 @@
         align-items: center;
         margin-top: 10px;
     }
+
     .footer-links a {
         margin: 5px 0;
     }
@@ -61,6 +77,7 @@
         display: flex;
         justify-content: center;
     }
+
     .footer-links a {
         margin: 0 15px;
     }
