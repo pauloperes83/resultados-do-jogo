@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 <a href="https://x.com/Resultado_jogo" class="social-icon" aria-label="Twitter">
                     <img src="../icons/svg/x-twitter.svg" alt="Twitter">
                 </a>
-                <a href="https://www.youtube.com/@AcertosOnline" class="social-icon" aria-label="YouTube">
+                <a href="https://www.youtube.com/@ResultadosdoJogo" class="social-icon" aria-label="YouTube">
                     <img src="../icons/svg/youtube.svg" alt="YouTube">
                 </a>
                 <a href="https://br.pinterest.com/Resultados_do_Jogo/_profile/" class="social-icon" aria-label="Pinterest">
