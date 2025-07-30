@@ -1,0 +1,41 @@
+{
+  "data": "26-07-2025",
+  "horario": "22:53",
+  "resultados": [
+    {
+      "posicao": "1º",
+      "milhar": "6873",
+      "animal": "19"
+    },
+    {
+      "posicao": "2º",
+      "milhar": "0111",
+      "animal": "03"
+    },
+    {
+      "posicao": "3º",
+      "milhar": "9683",
+      "animal": "21"
+    },
+    {
+      "posicao": "4º",
+      "milhar": "2751",
+      "animal": "13"
+    },
+    {
+      "posicao": "5º",
+      "milhar": "9265",
+      "animal": "17"
+    },
+    {
+      "posicao": "6º [soma]",
+      "milhar": "8683",
+      "animal": ""
+    },
+    {
+      "posicao": "7º [mult]",
+      "milhar": "562",
+      "animal": ""
+    }
+  ]
+}
