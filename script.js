@@ -73,3 +73,11 @@ function installPWA() {
                 window.history.back(); // Volta para a página anterior
             }
         });
+
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll(
+    '.table-wrapper a[href^="/gordoloterias"],' +
+    '.table-wrapper a[href*="bancalitoral.com"],' +
+    '.table-wrapper a[href*="litoraldasorte"]'
+  ).forEach(a => (a.closest('.table-wrapper') || a).remove());
+});
