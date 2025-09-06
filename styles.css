@@ -74,3 +74,13 @@ tbody td {
             border-color: #999;
         }
 
+/* Esconde links de banners herdados em qualquer página */
+.table-wrapper a[href^="/gordoloterias"],
+.table-wrapper a[href*="bancalitoral.com"],
+.table-wrapper a[href*="litoraldasorte"] {
+  display: none !important;
+}
+
+/* (Opcional) não mostrar nunca um container .banner vazio */
+.banner { display: none !important; }
+
