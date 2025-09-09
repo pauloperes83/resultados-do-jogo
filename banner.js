@@ -26,13 +26,15 @@
 
   // HTML 300x300 (OPCIONAL)
   const quadHTML = `
-    <div id="afiliado-quad" style="text-align:center;margin:16px 0;">
-      <a href="${LINK}" target="_blank" rel="noopener sponsored" style="display:inline-block">
+  <div id="afiliado-quad" class="banner-afiliado-quad" style="text-align:center;margin:16px 0;">
+    <a href="${LINK}" target="_blank" rel="noopener sponsored" style="display:inline-block">
+      <div style="width:300px;max-width:100%;margin:0 auto;">
         <img src="${IMG_QUADRO}" alt="Águia Prime"
-             style="width:300px;height:300px;border-radius:10px;"
+             style="display:block;width:100% !important;height:auto;aspect-ratio:1/1;border-radius:10px;"
              onerror="this.closest('#afiliado-quad')?.remove()">
-      </a>
-    </div>`;
+      </div>
+    </a>
+  </div>`;
 
   // Considero páginas de resultado
   function isPaginaResultado() {
@@ -70,3 +72,4 @@
     inject();
   }
 })();
+
