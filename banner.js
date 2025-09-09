@@ -1,15 +1,19 @@
-// banner.js — injeta 2 banners em TODAS as páginas
+// banner.js — injeta 2 banners em TODAS as páginas de resultado
 (function () {
   "use strict";
 
-  // link do afiliado
+  // Seu link
   const LINK = "https://app.aguiaprime119000.com/pr/y8X6LEBU";
 
-  // caminhos RELATIVOS às páginas (sem "/" no começo)
-  const IMG_TOPO   = "imagens/cotacao.webp";
-  const IMG_QUADRO = "imagens/aguia300x300.webp";
+  // Descobre a raiz do site a partir do próprio script (funciona com domínio custom ou GitHub Pages)
+  const thisScript = document.currentScript || (function(){const s=document.getElementsByTagName('script');return s[s.length-1];})();
+  const siteRoot  = thisScript && thisScript.src ? thisScript.src.replace(/\/[^\/?#]+(?:\?.*)?$/, "") : location.origin;
 
-  // blocos HTML dos banners
+  // Caminhos ABSOLUTOS das imagens (baseados na raiz do site)
+  const IMG_TOPO   = siteRoot + "/imagens/cotacao.webp";
+  const IMG_QUADRO = siteRoot + "/imagens/aguia300x300.webp";
+
+  // Blocos HTML
   const topHTML = `
     <div class="banner-afiliado-topo" style="text-align:center;margin:16px 0;">
       <a href="${LINK}" target="_blank" rel="noopener sponsored">
@@ -28,18 +32,26 @@
       </a>
     </div>`;
 
+  // Só injeta nas páginas de resultado
+  function isPaginaResultado() {
+    const h1 = document.querySelector("h1");
+    const t  = h1 ? h1.textContent.toLowerCase() : "";
+    return location.pathname.includes("resultado-") || /resultado/.test(t);
+  }
+
   function inject() {
-    // 1) coloca o banner do topo logo após o primeiro <h1> (se existir),
-    //    senão no começo do <body>
+    if (!isPaginaResultado()) return;
+
+    // 1) Depois do H1
     const h1 = document.querySelector("h1");
     if (h1) h1.insertAdjacentHTML("afterend", topHTML);
-    else document.body.insertAdjacentHTML("afterbegin", topHTML);
+    else    document.body.insertAdjacentHTML("afterbegin", topHTML);
 
-    // 2) coloca o 300x300 antes de "Outras datas" se existir; senão no final do body
+    // 2) Antes de "Outras datas:" (se tiver), senão no fim do body
     const alvo = Array.from(document.querySelectorAll("h2,h3,p,div,span,strong"))
       .find(el => /outras datas/i.test(el.textContent || ""));
     if (alvo) alvo.insertAdjacentHTML("beforebegin", quadHTML);
-    else document.body.insertAdjacentHTML("beforeend", quadHTML);
+    else      document.body.insertAdjacentHTML("beforeend", quadHTML);
   }
 
   if (document.readyState === "loading") {
