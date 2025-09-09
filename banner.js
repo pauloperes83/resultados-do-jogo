@@ -53,17 +53,13 @@
       else document.body.insertAdjacentHTML("afterbegin", topHTML);
     }
 
-    // 2) 300x300 — OPCIONAL
-    //    -> para usar, remova os "/*" e "*/" abaixo
-    /*
-    if (!document.getElementById("afiliado-quad")) {
-      // tenta achar o bloco "Outras datas:" (com ou sem dois-pontos)
-      const alvo = Array.from(document.querySelectorAll("h2,h3,p,div,span,strong"))
-        .find(el => (el.textContent || "").trim().toLowerCase().startsWith("outras datas"));
-      if (alvo) alvo.insertAdjacentHTML("beforebegin", quadHTML);
-      else      document.body.insertAdjacentHTML("beforeend", quadHTML);
-    }
-    */
+    // 2) 300x300 — insere antes de “Outras datas” (se existir), senão no fim do body
+if (!document.getElementById("afiliado-quad")) {
+  const alvo = Array.from(document.querySelectorAll("h2,h3,p,div,span,strong"))
+    .find(el => /outras datas/i.test((el.textContent || "").trim()));
+  if (alvo) alvo.insertAdjacentHTML("beforebegin", quadHTML);
+  else      document.body.insertAdjacentHTML("beforeend", quadHTML);
+}
   }
 
   if (document.readyState === "loading") {
@@ -72,4 +68,5 @@
     inject();
   }
 })();
+
 
