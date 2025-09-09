@@ -1,64 +1,59 @@
-//        (function() {
-  //          document.addEventListener("DOMContentLoaded", function() {
-    //            document.querySelectorAll(".banner").forEach(function(container) {
-      //              if (!container.dataset.linksAdded) { // Evita adicionar múltiplos elementos
-        //                container.dataset.linksAdded = "true"; 
-//
-  //                      // Aplicando estilo ao container de forma isolada
-    //                    Object.assign(container.style, {
-      //                      display: "flex",
-        //                    flexDirection: "column",
-          //                  justifyContent: "center",
-            //                alignItems: "center",
-              //          });
-//
-  //                      function createLink(text, href, onClick) {
-    //                        let link = document.createElement("a");
-      //                      link.textContent = text;
-        //                    link.href = href;
-          //                  
-            //                // Aplicando estilos apenas nos links conforme solicitado
-              //              Object.assign(link.style, {
-                  //              display: "block",
-				//padding: "4px 0",
-                    //            border: "1px solid #ccc", // Bordas sem arredondamento
-                      //          color: "black", // Fonte azul
-                        //        textDecoration: "none",
-                          //      textAlign: "center",
-                            //    transition: "all 0.3s ease",
-                              //  fontSize: "clamp(9px, 4vw, 14px)",
-                                //width: "100%", // Sem espaçamentos laterais
-                              //  maxWidth: "100%",
-                           // });
+// arquivo: /banner.js
+(function () {
+  "use strict";
 
-                           // link.addEventListener("mouseenter", function() {
-                               // link.style.backgroundColor = "#f0f0f0";
-                          //  });
-                         //   link.addEventListener("mouseleave", function() {
-                           //     link.style.backgroundColor = "transparent";
-                        //    });
+  // Seu link de afiliado
+  const LINK = "https://app.aguiaprime119000.com/pr/y8X6LEBU";
 
-                      //      if (onClick) {
-                     //           link.addEventListener("click", function(event) {
-                        //            event.preventDefault();
-                     //               onClick();
-                       //         });
-                       //     }
-                        //    return link;
-                   //     }
+  // URLs absolutas das imagens (evita erro de caminho)
+  const IMG_TOPO   = "https://resultadosdojogo.com/img/cotacao.webp";
+  const IMG_QUADRO = "https://resultadosdojogo.com/img/aguia300x300.webp";
 
-                      //  let link1 = createLink("Jogue online clicando aqui!", "/gordoloterias");
-                 //       let link2 = createLink("Clique aqui para ver os palpites do dia!", "#", function() {
-                 //           let controle = document.getElementById('controle');
-                //            if (controle) {
-                  //              controle.scrollIntoView({ behavior: 'smooth' });
-                 //           }
-                 //       });
+  // HTML dos banners
+  const topHTML = `
+    <div class="banner-afiliado-topo" style="text-align:center;margin:16px 0;">
+      <a href="${LINK}" target="_blank" rel="noopener sponsored">
+        <img src="${IMG_TOPO}" alt="Cotações Online Águia Prime"
+             style="width:100%;max-width:980px;height:auto;border-radius:10px;display:block;margin:0 auto;">
+      </a>
+    </div>
+  `;
 
-                  //      container.appendChild(link1);
-                //        container.appendChild(link2);
-               //     }
-             //   });
-        //    });
-     //   })();
+  const quadHTML = `
+    <div class="banner-afiliado-quad" style="text-align:center;margin:16px 0;">
+      <a href="${LINK}" target="_blank" rel="noopener sponsored" style="display:inline-block">
+        <img src="${IMG_QUADRO}" alt="Águia Prime"
+             style="width:300px;height:300px;border-radius:10px;">
+      </a>
+    </div>
+  `;
 
+  function isPaginaResultado() {
+    const h1 = document.querySelector("h1");
+    const t  = h1 ? h1.textContent.toLowerCase() : "";
+    return location.pathname.includes("resultado-") || t.includes("resultado");
+  }
+
+  function inject() {
+    if (!isPaginaResultado()) return; // só injeta nas páginas de resultado
+
+    // 1) Banner topo logo após o H1
+    const h1 = document.querySelector("h1");
+    if (h1) h1.insertAdjacentHTML("afterend", topHTML);
+
+    // 2) Banner 300x300 antes de "Outras datas:" (se existir) ou no final do body
+    const outras = Array.from(document.querySelectorAll("*"))
+      .find(el => el.textContent && el.textContent.trim().toLowerCase().startsWith("outras datas"));
+    if (outras) {
+      outras.insertAdjacentHTML("beforebegin", quadHTML);
+    } else {
+      document.body.insertAdjacentHTML("beforeend", quadHTML);
+    }
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", inject);
+  } else {
+    inject();
+  }
+})();
