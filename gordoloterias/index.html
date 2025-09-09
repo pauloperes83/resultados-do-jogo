@@ -59,517 +59,88 @@
       gtag('config', 'G-X511VLGFJE');
     </script>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Arial', sans-serif;
+        * { margin:0; padding:0; box-sizing:border-box; font-family:'Arial', sans-serif; }
+        body { background-color:#1a1a1a; color:#fff; line-height:1.6; overflow-x:hidden; }
+        header { text-align:center; padding:30px 10px; background:linear-gradient(180deg,#000,#2a2a2a); }
+        header img { max-width:150px; width:100%; }
+        header p { font-size:20px; font-weight:bold; color:#fff; margin-top:15px; text-transform:uppercase; }
+        section { padding:40px 15px; text-align:center; }
+        .fade-in { opacity:0; transform:translateY(20px); transition:opacity .5s ease, transform .5s ease; }
+        .fade-in.visible { opacity:1; transform:translateY(0); }
+        h2 { font-size:32px; font-weight:bold; color:#ffd700; margin-bottom:20px; text-transform:uppercase; font-family:'Oswald', sans-serif; position:relative; }
+        #cotacoes { background:linear-gradient(180deg,#2a2a2a,#000); }
+        #cotacoes img { width:100%; max-height:300px; object-fit:contain; }
+        .expandable-container { cursor:pointer; display:inline-block; margin:15px 0; padding:12px 24px; background:linear-gradient(135deg,#2a2a2a,#1a1a1a); border-radius:8px; border:1px solid #ffd700; transition:background .3s ease; min-height:48px; }
+        .expandable-container:hover { background:linear-gradient(135deg,#3a3a3a,#2a2a2a); }
+        .expandable-title { font-size:24px; font-weight:bold; color:#ffd700; margin-bottom:5px; font-family:'Oswald', sans-serif; }
+        .arrow-container { margin-top:-5px; }
+        .expandable-container.active .arrow-container { display:none; }
+        .cotacoes-text { display:none; font-size:14px; color:#fff; text-align:left; max-width:100%; margin:15px 10px; background:#2a2a2a; padding:15px; border-radius:8px; border:1px solid #ffd700; box-shadow:0 4px 8px rgba(0,0,0,.3); overflow-x:auto; }
+        .cotacoes-text.active { display:block; }
+        .cotacao-grid { display:flex; flex-direction:column; min-width:100%; font-family:'Roboto', sans-serif; }
+        .cotacao-grid .header { font-size:16px; font-weight:bold; color:#ffd700; padding:8px 0; border-bottom:2px solid #ffd700; text-align:center; }
+        .cotacao-grid .row { display:flex; justify-content:space-between; align-items:center; padding:8px 0; border-bottom:1px dashed #ffd700; }
+        .cotacao-grid .row:last-child { border-bottom:none; }
+        .cotacao-grid .item-text { flex:1; display:flex; align-items:center; min-width:0; word-wrap:break-word; }
+        .cotacao-grid i { color:#ffd700; margin-right:6px; font-size:12px; }
+        .cotacao-grid .value { color:#ffd700; text-align:right; font-weight:bold; min-width:80px; }
+        #vantagens { background:linear-gradient(180deg,#000,#3a3a3a); }
+        #vantagens h2 { position:relative; display:inline-block; }
+        #vantagens h2::after { content:''; position:absolute; bottom:-5px; left:0; width:100%; height:3px; background:linear-gradient(90deg,#ffd700,#ff8c00); border-radius:2px; }
+        #vantagens .vantagens-container { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:20px; max-width:1200px; margin:0 auto; padding:20px; }
+        #vantagens .vantagem-card { background:linear-gradient(135deg,#2a2a2a,#1a1a1a); padding:25px; border-radius:12px; border:2px solid #ffd700; box-shadow:0 6px 12px rgba(0,0,0,.4); transition:transform .3s ease, box-shadow .3s ease; position:relative; overflow:hidden; }
+        #vantagens .vantagem-card:hover { transform:scale(1.05); box-shadow:0 10px 20px rgba(255,215,0,.3); }
+        #vantagens .vantagem-card::before { content:''; position:absolute; top:0; left:0; width:100%; height:100%; background:radial-gradient(circle, rgba(255,215,0,.1) 0%, transparent 70%); opacity:0; transition:opacity .3s ease; }
+        #vantagens .vantagem-card:hover::before { opacity:1; }
+        #vantagens .vantagem-card .card-icon { font-size:32px; color:#ffd700; margin-bottom:15px; }
+        #vantagens .vantagem-card h3 { font-size:26px; background:linear-gradient(180deg,#ffd700,#ff8c00); -webkit-background-clip:text; -webkit-text-fill-color:transparent; margin-bottom:15px; font-family:'Oswald', sans-serif; text-transform:uppercase; }
+        #vantagens .vantagem-card .highlight { display:inline-block; font-size:30px; font-weight:800; color:#1a1a1a; background:linear-gradient(180deg,#ffd700,#ff8c00); padding:8px 16px; border-radius:8px; margin:12px 0; box-shadow:0 3px 6px rgba(255,215,0,.4); font-family:'Oswald', sans-serif; text-transform:uppercase; text-shadow:0 1px 2px rgba(0,0,0,.3); }
+        #vantagens .vantagem-card p { font-size:15px; color:#ddd; margin-bottom:12px; font-family:'Roboto', sans-serif; line-height:1.5; }
+        #vantagens .vantagem-card ul { list-style:none; text-align:left; margin:12px 0; padding:0 15px; }
+        #vantagens .vantagem-card li { font-size:14px; color:#ddd; margin:8px 0; display:flex; align-items:center; line-height:1.5; }
+        #vantagens .vantagem-card li::before { content:'★'; color:#ffd700; margin-right:8px; font-size:16px; }
+        #vantagens .vantagem-card:not(:last-child)::after { content:''; display:none; width:80%; height:1px; background:#ffd700; opacity:.3; margin:20px auto 0; }
+        #banner { background:linear-gradient(180deg,#3a3a3a,#000); }
+        #banner img { width:100%; max-height:300px; object-fit:contain; }
+        #banner .banner-text { margin-top:15px; max-width:90%; margin-left:auto; margin-right:auto; }
+        #banner .banner-text h2 { color:#ffd700; font-size:28px; margin-bottom:8px; }
+        #banner .banner-text p { color:#fff; font-size:16px; margin-bottom:8px; font-family:'Roboto', sans-serif; }
+        #banner .banner-text h3 { color:#00ff00; font-size:24px; font-weight:bold; font-family:'Oswald', sans-serif; text-transform:uppercase; }
+        #beneficios { background:linear-gradient(180deg,#000,#2a2a2a); }
+        #beneficios ul { list-style:none; max-width:90%; margin:0 auto; text-align:left; }
+        #beneficios li { font-size:16px; color:#fff; margin:12px 0; display:flex; align-items:center; line-height:1.5; }
+        #beneficios li::before { content:'★'; color:#ffd700; margin-right:8px; font-size:16px; }
+        .sistemabarao-container { display:flex; justify-content:center; padding:20px 15px; background:linear-gradient(180deg,#2a2a2a,#000); }
+        .sistemabarao-container img { width:64px; height:64px; }
+        footer { background:linear-gradient(180deg,#000,#2a2a2a); padding:15px; text-align:center; font-size:12px; color:#fff; }
+        footer p { margin:4px 0; }
+        footer a { color:#ffd700; text-decoration:none; }
+        footer a:hover { text-decoration:underline; }
+        .floating-button { position:fixed; bottom:15px; left:50%; transform:translateX(-50%); width:calc(100% - 30px); max-width:400px; background-color:#ffd700; color:#1a1a1a; font-size:16px; font-weight:bold; padding:12px 20px; border:none; border-radius:20px; cursor:pointer; text-transform:uppercase; z-index:1000; box-shadow:0 0 8px #ffd700, 0 0 16px #ffd700, 0 0 24px #ffd700; transition:box-shadow .3s ease, background-color .3s ease; }
+        .floating-button:hover { background-color:#e6c200; box-shadow:0 0 12px #ffd700, 0 0 20px #ffd700, 0 0 32px #ffd700; }
+        .whatsapp-icon { position:fixed; bottom:80px; right:15px; z-index:1000; }
+        .whatsapp-icon img { width:50px; height:50px; }
+        @media (max-width:600px){
+            header{padding:20px 10px;} header img{max-width:120px;} header p{font-size:18px;margin-top:10px;}
+            section{padding:30px 10px;} h2{font-size:26px;margin-bottom:15px;}
+            .expandable-title{font-size:20px;} .cotacao-grid .header{font-size:14px;}
+            .cotacao-grid .row{font-size:12px;padding:6px 0;} .cotacao-grid .value{min-width:70px;}
+            #vantagens .vantagens-container{grid-template-columns:1fr;padding:15px;}
+            #vantagens .vantagem-card{padding:20px;} #vantagens .vantagem-card h3{font-size:22px;}
+            #vantagens .vantagem-card .card-icon{font-size:28px;} #vantagens .vantagem-card .highlight{font-size:24px;padding:6px 12px;}
+            #vantagens .vantagem-card p{font-size:13px;} #vantagens .vantagem-card li{font-size:12px;}
+            #vantagens .vantagem-card:not(:last-child)::after{display:block;}
+            #banner .banner-text h2{font-size:24px;} #banner .banner-text p{font-size:14px;} #banner .banner-text h3{font-size:20px;}
+            #beneficios li{font-size:14px;margin:10px 0;} .sistemabarao-container{padding:15px 10px;}
+            .floating-button{font-size:14px;padding:10px 15px;} .whatsapp-icon img{width:40px;height:40px;}
         }
-        body {
-            background-color: #1a1a1a;
-            color: #fff;
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
-        header {
-            text-align: center;
-            padding: 30px 10px;
-            background: linear-gradient(180deg, #000000, #2a2a2a);
-        }
-        header img {
-            max-width: 150px;
-            width: 100%;
-        }
-        header p {
-            font-size: 20px;
-            font-weight: bold;
-            color: #fff;
-            margin-top: 15px;
-            text-transform: uppercase;
-        }
-        section {
-            padding: 40px 15px;
-            text-align: center;
-        }
-        .fade-in {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.5s ease, transform 0.5s ease;
-        }
-        .fade-in.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        h2 {
-            font-size: 32px;
-            font-weight: bold;
-            color: #ffd700;
-            margin-bottom: 20px;
-            text-transform: uppercase;
-            font-family: 'Oswald', sans-serif;
-            position: relative;
-        }
-        #cotacoes {
-            background: linear-gradient(180deg, #2a2a2a, #000000);
-        }
-        #cotacoes img {
-            width: 100%;
-            max-height: 300px;
-            object-fit: contain;
-        }
-        .expandable-container {
-            cursor: pointer;
-            display: inline-block;
-            margin: 15px 0;
-            padding: 12px 24px;
-            background: linear-gradient(135deg, #2a2a2a, #1a1a1a);
-            border-radius: 8px;
-            border: 1px solid #ffd700;
-            transition: background 0.3s ease;
-            min-height: 48px;
-        }
-        .expandable-container:hover {
-            background: linear-gradient(135deg, #3a3a3a, #2a2a2a);
-        }
-        .expandable-title {
-            font-size: 24px;
-            font-weight: bold;
-            color: #ffd700;
-            margin-bottom: 5px;
-            font-family: 'Oswald', sans-serif;
-        }
-        .arrow-container {
-            margin-top: -5px;
-        }
-        .expandable-container.active .arrow-container {
-            display: none;
-        }
-        .cotacoes-text {
-            display: none;
-            font-size: 14px;
-            color: #fff;
-            text-align: left;
-            max-width: 100%;
-            margin: 15px 10px;
-            background: #2a2a2a;
-            padding: 15px;
-            border-radius: 8px;
-            border: 1px solid #ffd700;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-            overflow-x: auto;
-        }
-        .cotacoes-text.active {
-            display: block;
-        }
-        .cotacao-grid {
-            display: flex;
-            flex-direction: column;
-            min-width: 100%;
-            font-family: 'Roboto', sans-serif;
-        }
-        .cotacao-grid .header {
-            font-size: 16px;
-            font-weight: bold;
-            color: #ffd700;
-            padding: 8px 0;
-            border-bottom: 2px solid #ffd700;
-            text-align: center;
-        }
-        .cotacao-grid .row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 8px 0;
-            border-bottom: 1px dashed #ffd700;
-        }
-        .cotacao-grid .row:last-child {
-            border-bottom: none;
-        }
-        .cotacao-grid .item-text {
-            flex: 1;
-            display: flex;
-            align-items: center;
-            min-width: 0;
-            word-wrap: break-word;
-        }
-        .cotacao-grid i {
-            color: #ffd700;
-            margin-right: 6px;
-            font-size: 12px;
-        }
-        .cotacao-grid .value {
-            color: #ffd700;
-            text-align: right;
-            font-weight: bold;
-            min-width: 80px;
-        }
-        #vantagens {
-            background: linear-gradient(180deg, #000000, #3a3a3a);
-        }
-        #vantagens h2 {
-            position: relative;
-            display: inline-block;
-        }
-        #vantagens h2::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 100%;
-            height: 3px;
-            background: linear-gradient(90deg, #ffd700, #ff8c00);
-            border-radius: 2px;
-        }
-        #vantagens .vantagens-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        #vantagens .vantagem-card {
-            background: linear-gradient(135deg, #2a2a2a, #1a1a1a);
-            padding: 25px;
-            border-radius: 12px;
-            border: 2px solid #ffd700;
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-        #vantagens .vantagem-card:hover {
-            transform: scale(1.05);
-            box-shadow: 0 10px 20px rgba(255, 215, 0, 0.3);
-        }
-        #vantagens .vantagem-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle, rgba(255, 215, 0, 0.1) 0%, transparent 70%);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-        #vantagens .vantagem-card:hover::before {
-            opacity: 1;
-        }
-        #vantagens .vantagem-card .card-icon {
-            font-size: 32px;
-            color: #ffd700;
-            margin-bottom: 15px;
-        }
-        #vantagens .vantagem-card h3 {
-            font-size: 26px;
-            background: linear-gradient(180deg, #ffd700, #ff8c00);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 15px;
-            font-family: 'Oswald', sans-serif;
-            text-transform: uppercase;
-        }
-        #vantagens .vantagem-card .highlight {
-            display: inline-block;
-            font-size: 30px;
-            font-weight: 800;
-            color: #1a1a1a;
-            background: linear-gradient(180deg, #ffd700, #ff8c00);
-            padding: 8px 16px;
-            border-radius: 8px;
-            margin: 12px 0;
-            box-shadow: 0 3px 6px rgba(255, 215, 0, 0.4);
-            font-family: 'Oswald', sans-serif;
-            text-transform: uppercase;
-            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
-        }
-        #vantagens .vantagem-card p {
-            font-size: 15px;
-            color: #ddd;
-            margin-bottom: 12px;
-            font-family: 'Roboto', sans-serif;
-            line-height: 1.5;
-        }
-        #vantagens .vantagem-card ul {
-            list-style: none;
-            text-align: left;
-            margin: 12px 0;
-            padding: 0 15px;
-        }
-        #vantagens .vantagem-card li {
-            font-size: 14px;
-            color: #ddd;
-            margin: 8px 0;
-            display: flex;
-            align-items: center;
-            line-height: 1.5;
-        }
-        #vantagens .vantagem-card li::before {
-            content: '★';
-            color: #ffd700;
-            margin-right: 8px;
-            font-size: 16px;
-        }
-        #vantagens .vantagem-card:not(:last-child)::after {
-            content: '';
-            display: none;
-            width: 80%;
-            height: 1px;
-            background: #ffd700;
-            opacity: 0.3;
-            margin: 20px auto 0;
-        }
-        #banner {
-            background: linear-gradient(180deg, #3a3a3a, #000000);
-        }
-        #banner img {
-            width: 100%;
-            max-height: 300px;
-            object-fit: contain;
-        }
-        #banner .banner-text {
-            margin-top: 15px;
-            max-width: 90%;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        #banner .banner-text h2 {
-            color: #ffd700;
-            font-size: 28px;
-            margin-bottom: 8px;
-        }
-        #banner .banner-text p {
-            color: #fff;
-            font-size: 16px;
-            margin-bottom: 8px;
-            font-family: 'Roboto', sans-serif;
-        }
-        #banner .banner-text h3 {
-            color: #00ff00;
-            font-size: 24px;
-            font-weight: bold;
-            font-family: 'Oswald', sans-serif;
-            text-transform: uppercase;
-        }
-        #beneficios {
-            background: linear-gradient(180deg, #000000, #2a2a2a);
-        }
-        #beneficios ul {
-            list-style: none;
-            max-width: 90%;
-            margin: 0 auto;
-            text-align: left;
-        }
-        #beneficios li {
-            font-size: 16px;
-            color: #fff;
-            margin: 12px 0;
-            display: flex;
-            align-items: center;
-            line-height: 1.5;
-        }
-        #beneficios li::before {
-            content: '★';
-            color: #ffd700;
-            margin-right: 8px;
-            font-size: 16px;
-        }
-        .sistemabarao-container {
-            display: flex;
-            justify-content: center;
-            padding: 20px 15px;
-            background: linear-gradient(180deg, #2a2a2a, #000000);
-        }
-        .sistemabarao-container img {
-            width: 64px;
-            height: 64px;
-        }
-        footer {
-            background: linear-gradient(180deg, #000000, #2a2a2a);
-            padding: 15px;
-            text-align: center;
-            font-size: 12px;
-            color: #fff;
-        }
-        footer p {
-            margin: 4px 0;
-        }
-        footer a {
-            color: #ffd700;
-            text-decoration: none;
-        }
-        footer a:hover {
-            text-decoration: underline;
-        }
-        .floating-button {
-            position: fixed;
-            bottom: 15px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: calc(100% - 30px);
-            max-width: 400px;
-            background-color: #ffd700;
-            color: #1a1a1a;
-            font-size: 16px;
-            font-weight: bold;
-            padding: 12px 20px;
-            border: none;
-            border-radius: 20px;
-            cursor: pointer;
-            text-transform: uppercase;
-            z-index: 1000;
-            box-shadow: 0 0 8px #ffd700, 0 0 16px #ffd700, 0 0 24px #ffd700;
-            transition: box-shadow 0.3s ease, background-color 0.3s ease;
-        }
-        .floating-button:hover {
-            background-color: #e6c200;
-            box-shadow: 0 0 12px #ffd700, 0 0 20px #ffd700, 0 0 32px #ffd700;
-        }
-        .whatsapp-icon {
-            position: fixed;
-            bottom: 80px;
-            right: 15px;
-            z-index: 1000;
-        }
-        .whatsapp-icon img {
-            width: 50px;
-            height: 50px;
-        }
-        @media (max-width: 600px) {
-            header {
-                padding: 20px 10px;
-            }
-            header img {
-                max-width: 120px;
-            }
-            header p {
-                font-size: 18px;
-                margin-top: 10px;
-            }
-            section {
-                padding: 30px 10px;
-            }
-            h2 {
-                font-size: 26px;
-                margin-bottom: 15px;
-            }
-            .expandable-title {
-                font-size: 20px;
-            }
-            .cotacao-grid .header {
-                font-size: 14px;
-            }
-            .cotacao-grid .row {
-                font-size: 12px;
-                padding: 6px 0;
-            }
-            .cotacao-grid .value {
-                min-width: 70px;
-            }
-            #vantagens .vantagens-container {
-                grid-template-columns: 1fr;
-                padding: 15px;
-            }
-            #vantagens .vantagem-card {
-                padding: 20px;
-            }
-            #vantagens .vantagem-card h3 {
-                font-size: 22px;
-            }
-            #vantagens .vantagem-card .card-icon {
-                font-size: 28px;
-            }
-            #vantagens .vantagem-card .highlight {
-                font-size: 24px;
-                padding: 6px 12px;
-            }
-            #vantagens .vantagem-card p {
-                font-size: 13px;
-            }
-            #vantagens .vantagem-card li {
-                font-size: 12px;
-            }
-            #vantagens .vantagem-card:not(:last-child)::after {
-                display: block;
-            }
-            #banner .banner-text h2 {
-                font-size: 24px;
-            }
-            #banner .banner-text p {
-                font-size: 14px;
-            }
-            #banner .banner-text h3 {
-                font-size: 20px;
-            }
-            #beneficios li {
-                font-size: 14px;
-                margin: 10px 0;
-            }
-            .sistemabarao-container {
-                padding: 15px 10px;
-            }
-            .floating-button {
-                font-size: 14px;
-                padding: 10px 15px;
-            }
-            .whatsapp-icon img {
-                width: 40px;
-                height: 40px;
-            }
-        }
-        @media (max-width: 400px) {
-            header p {
-                font-size: 16px;
-            }
-            h2 {
-                font-size: 22px;
-            }
-            .expandable-title {
-                font-size: 18px;
-            }
-            .cotacao-grid .header {
-                font-size: 13px;
-            }
-            .cotacao-grid .row {
-                font-size: 11px;
-            }
-            .cotacao-grid .value {
-                min-width: 60px;
-            }
-            #vantagens .vantagem-card h3 {
-                font-size: 20px;
-            }
-            #vantagens .vantagem-card .card-icon {
-                font-size: 24px;
-            }
-            #vantagens .vantagem-card .highlight {
-                font-size: 20px;
-            }
-            #vantagens .vantagem-card p {
-                font-size: 12px;
-            }
-            #vantagens .vantagem-card li {
-                font-size: 11px;
-            }
-            #banner .banner-text h2 {
-                font-size: 20px;
-            }
-            #banner .banner-text p {
-                font-size: 12px;
-            }
-            #banner .banner-text h3 {
-                font-size: 18px;
-            }
-            #beneficios li {
-                font-size: 12px;
-            }
-            .sistemabarao-container {
-                padding: 10px 10px;
-            }
-            footer {
-                font-size: 11px;
-            }
+        @media (max-width:400px){
+            header p{font-size:16px;} h2{font-size:22px;} .expandable-title{font-size:18px;}
+            .cotacao-grid .header{font-size:13px;} .cotacao-grid .row{font-size:11px;} .cotacao-grid .value{min-width:60px;}
+            #vantagens .vantagem-card h3{font-size:20px;} #vantagens .vantagem-card .card-icon{font-size:24px;}
+            #vantagens .vantagem-card .highlight{font-size:20px;} #vantagens .vantagem-card p{font-size:12px;} #vantagens .vantagem-card li{font-size:11px;}
+            #banner .banner-text h2{font-size:20px;} #banner .banner-text p{font-size:12px;} #banner .banner-text h3{font-size:18px;}
+            #beneficios li{font-size:12px;} .sistemabarao-container{padding:10px 10px;} footer{font-size:11px;}
         }
     </style>
 </head>
@@ -578,90 +149,44 @@
         <img src="logo.webp" alt="Logo Gordo Loterias - Plataforma de Apostas Online">
         <p>Maior plataforma de apostas online do Brasil</p>
     </header>
+
+    <!-- COTAÇÕES com banner CLICÁVEL -->
     <section id="cotacoes">
         <a href="https://app.aguiaprime119000.com/pr/y8X6LEBU" target="_blank" rel="noopener">
-  <img class="fade-in" src="img/cotacao.webp" alt="Cotações Online Águia Prime">
-</a>
-        <div class="expandable-container fade-in" onclick="toggleCotacoes()">
+            <img src="img/cotacao.webp" alt="Cotações Online Águia Prime" style="width:100%;max-height:300px;object-fit:contain;">
+        </a>
+
+        <div class="expandable-container" onclick="toggleCotacoes()">
             <div class="expandable-title">Veja as cotações</div>
             <div class="arrow-container">
-                <i class="fas fa-chevron-down" style="color: #ffd700; font-size: 24px;"></i>
+                <i class="fas fa-chevron-down" style="color:#ffd700;font-size:24px;"></i>
             </div>
         </div>
-        <div class="cotacoes-text fade-in">
+
+        <div class="cotacoes-text">
             <div class="cotacao-grid">
                 <div class="header">A cada R$ 1,00 (um real), você pode ganhar:</div>
-                <div class="row">
-                    <span class="item-text"><i class="fas fa-check-circle"></i>Milhar</span>
-                    <span class="value">8.000,00</span>
-                </div>
-                <div class="row">
-                    <span class="item-text"><i class="fas fa-check-circle"></i>Centena</span>
-                    <span class="value">800,00</span>
-                </div>
-                <div class="row">
-                    <span class="item-text"><i class="fas fa-check-circle"></i>Grupo</span>
-                    <span class="value">20,00</span>
-                </div>
-                <div class="row">
-                    <span class="item-text"><i class="fas fa-check-circle"></i>Dezena</span>
-                    <span class="value">80,00</span>
-                </div>
-                <div class="row">
-                    <span class="item-text"><i class="fas fa-check-circle"></i>Unidade</span>
-                    <span class="value">8,00</span>
-                </div>
-                <div class="row">
-                    <span class="item-text"><i class="fas fa-check-circle"></i>Duque de Grupo (1º ao 2º)</span>
-                    <span class="value">180,00</span>
-                </div>
-                <div class="row">
-                    <span class="item-text"><i class="fas fa-check-circle"></i>Duque de Grupo (1º ao 5º)</span>
-                    <span class="value">18,00</span>
-                </div>
-                <div class="row">
-                    <span class="item-text"><i class="fas fa-check-circle"></i>Duque de Dezena (1º ao 5º)</span>
-                    <span class="value">300,00</span>
-                </div>
-                <div class="row">
-                    <span class="item-text"><i class="fas fa-check-circle"></i>Terno de Grupo (1º ao 3º)</span>
-                    <span class="value">1.500,00</span>
-                </div>
-                <div class="row">
-                    <span class="item-text"><i class="fas fa-check-circle"></i>Terno de Grupo (1º ao 5º)</span>
-                    <span class="value">150,00</span>
-                </div>
-                <div class="row">
-                    <span class="item-text"><i class="fas fa-check-circle"></i>Passe Vai</span>
-                    <span class="value">90,00</span>
-                </div>
-                <div class="row">
-                    <span class="item-text"><i class="fas fa-check-circle"></i>Passe Vai e Vem</span>
-                    <span class="value">45,00</span>
-                </div>
-                <div class="row">
-                    <span class="item-text"><i class="fas fa-check-circle"></i>Terno de Dezena (1º ao 5º)</span>
-                    <span class="value">5.000,00</span>
-                </div>
-                <div class="row">
-                    <span class="item-text"><i class="fas fa-check-circle"></i>Quadra de Grupo (1º ao 5º)</span>
-                    <span class="value">1.000,00</span>
-                </div>
-                <div class="row">
-                    <span class="item-text"><i class="fas fa-check-circle"></i>Quina de Grupo (1º ao 5º)</span>
-                    <span class="value">1.000,00</span>
-                </div>
-                <div class="row">
-                    <span class="item-text"><i class="fas fa-check-circle"></i>Sena de Grupo (1º ao 6º)</span>
-                    <span class="value">1.000,00</span>
-                </div>
-                <div class="row">
-                    <span class="item-text"><i class="fas fa-check-circle"></i>Palpitão</span>
-                    <span class="value">800,00</span>
-                </div>
+                <div class="row"><span class="item-text"><i class="fas fa-check-circle"></i>Milhar</span><span class="value">8.000,00</span></div>
+                <div class="row"><span class="item-text"><i class="fas fa-check-circle"></i>Centena</span><span class="value">800,00</span></div>
+                <div class="row"><span class="item-text"><i class="fas fa-check-circle"></i>Grupo</span><span class="value">20,00</span></div>
+                <div class="row"><span class="item-text"><i class="fas fa-check-circle"></i>Dezena</span><span class="value">80,00</span></div>
+                <div class="row"><span class="item-text"><i class="fas fa-check-circle"></i>Unidade</span><span class="value">8,00</span></div>
+                <div class="row"><span class="item-text"><i class="fas fa-check-circle"></i>Duque de Grupo (1º ao 2º)</span><span class="value">180,00</span></div>
+                <div class="row"><span class="item-text"><i class="fas fa-check-circle"></i>Duque de Grupo (1º ao 5º)</span><span class="value">18,00</span></div>
+                <div class="row"><span class="item-text"><i class="fas fa-check-circle"></i>Duque de Dezena (1º ao 5º)</span><span class="value">300,00</span></div>
+                <div class="row"><span class="item-text"><i class="fas fa-check-circle"></i>Terno de Grupo (1º ao 3º)</span><span class="value">1.500,00</span></div>
+                <div class="row"><span class="item-text"><i class="fas fa-check-circle"></i>Terno de Grupo (1º ao 5º)</span><span class="value">150,00</span></div>
+                <div class="row"><span class="item-text"><i class="fas fa-check-circle"></i>Passe Vai</span><span class="value">90,00</span></div>
+                <div class="row"><span class="item-text"><i class="fas fa-check-circle"></i>Passe Vai e Vem</span><span class="value">45,00</span></div>
+                <div class="row"><span class="item-text"><i class="fas fa-check-circle"></i>Terno de Dezena (1º ao 5º)</span><span class="value">5.000,00</span></div>
+                <div class="row"><span class="item-text"><i class="fas fa-check-circle"></i>Quadra de Grupo (1º ao 5º)</span><span class="value">1.000,00</span></div>
+                <div class="row"><span class="item-text"><i class="fas fa-check-circle"></i>Quina de Grupo (1º ao 5º)</span><span class="value">1.000,00</span></div>
+                <div class="row"><span class="item-text"><i class="fas fa-check-circle"></i>Sena de Grupo (1º ao 6º)</span><span class="value">1.000,00</span></div>
+                <div class="row"><span class="item-text"><i class="fas fa-check-circle"></i>Palpitão</span><span class="value">800,00</span></div>
             </div>
         </div>
     </section>
+
     <section id="vantagens">
         <h2 class="fade-in">VANTAGENS EXCLUSIVAS</h2>
         <div class="vantagens-container fade-in">
@@ -692,6 +217,7 @@
             </div>
         </div>
     </section>
+
     <section id="banner">
         <img class="fade-in" src="img/gordo.webp" alt="Banner Promocional Gordo Loterias">
         <div class="banner-text">
@@ -700,6 +226,14 @@
             <h3 class="fade-in">2 MINUTOS</h3>
         </div>
     </section>
+
+    <!-- Banner 300x300 CLICÁVEL -->
+    <section id="banner-aguia-300" style="text-align:center; padding:20px 0; background:linear-gradient(180deg,#2a2a2a,#000000);">
+      <a href="https://app.aguiaprime119000.com/pr/y8X6LEBU" target="_blank" rel="noopener" style="display:inline-block">
+        <img src="img/aguia300x300.webp" alt="Águia Prime" style="width:300px;height:300px;max-width:100%;border-radius:10px;">
+      </a>
+    </section>
+
     <section id="beneficios">
         <h2 class="fade-in">CONFIRA TODOS OS BENEFÍCIOS DA NOSSA PLATAFORMA</h2>
         <ul class="fade-in">
@@ -712,17 +246,22 @@
             <li>SUPORTE HUMANO 24/7</li>
         </ul>
     </section>
+
     <div class="sistemabarao-container">
         <img class="fade-in" src="img/sistemabarao.webp" alt="Sistema Barão - Gordo Loterias" width="64" height="64">
     </div>
+
     <footer>
         <p>© 2025 Gordo Loterias. Todos os direitos reservados.</p>
         <p><a href="#">Termos de Uso</a> | <a href="#">Política de Privacidade</a></p>
     </footer>
+
     <button class="floating-button" onclick="window.location.href='https://app.sistemabarao.com.br/gordo-loterias?p=7tw3uvfz'">QUERO ME CADASTRAR!</button>
-<a href="https://wa.me/+5519981448935?text=Ol%C3%A1%20promotor%2C%20preciso%20de%20ajuda%21" class="whatsapp-icon">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="Contato via WhatsApp Gordo Loterias">
-</a>
+
+    <a href="https://wa.me/+5519981448935?text=Ol%C3%A1%20promotor%2C%20preciso%20de%20ajuda%21" class="whatsapp-icon">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="Contato via WhatsApp Gordo Loterias">
+    </a>
+
     <script>
         function toggleCotacoes() {
             const text = document.querySelector('.cotacoes-text');
@@ -741,12 +280,10 @@
                 const windowHeight = window.innerHeight;
                 if (sectionTop < windowHeight - 100) {
                     const fadeElements = section.querySelectorAll('.fade-in');
-                    fadeElements.forEach(element => {
-                        element.classList.add('visible');
-                    });
+                    fadeElements.forEach(element => { element.classList.add('visible'); });
                     if (section.id === 'vantagens') {
                         const cards = section.querySelectorAll('.vantagem-card');
-                        cards.forEach((card, index) => {
+                        cards.forEach((card) => {
                             const delay = card.dataset.delay || '0s';
                             card.style.transitionDelay = delay;
                             card.classList.add('visible');
