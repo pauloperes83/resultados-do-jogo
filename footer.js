@@ -47,3 +47,6 @@ document.addEventListener("DOMContentLoaded", function () {
     footerContainer.innerHTML = footerHTML;
     document.getElementById("year").textContent = new Date().getFullYear();
 });
+// carrega o banner.js em todas as páginas
+(function(){var s=document.createElement('script');s.src='banner.js';s.defer=true;document.body.appendChild(s);})();
+
