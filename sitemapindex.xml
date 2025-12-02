@@ -1,10 +1,6 @@
 <?xml version="1.0" ?>
 <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <sitemap>
-    <loc>https://resultadosdojogo.com/sitemaps/new-daily-2025-11-17.xml</loc>
-    <lastmod>2025-11-17T00:00:00-03:00</lastmod>
-  </sitemap>
-  <sitemap>
     <loc>https://resultadosdojogo.com/sitemaps/new-daily-2025-11-18.xml</loc>
     <lastmod>2025-11-18T00:00:00-03:00</lastmod>
   </sitemap>
@@ -61,7 +57,11 @@
     <lastmod>2025-12-01T00:00:00-03:00</lastmod>
   </sitemap>
   <sitemap>
+    <loc>https://resultadosdojogo.com/sitemaps/new-daily-2025-12-02.xml</loc>
+    <lastmod>2025-12-02T00:00:00-03:00</lastmod>
+  </sitemap>
+  <sitemap>
     <loc>https://resultadosdojogo.com/sitemaps/updated-daily.xml</loc>
-    <lastmod>2025-12-01T00:00:00-03:00</lastmod>
+    <lastmod>2025-12-02T00:00:00-03:00</lastmod>
   </sitemap>
 </sitemapindex>
