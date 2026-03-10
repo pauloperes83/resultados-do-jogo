@@ -7,7 +7,7 @@
   window.__AFILIADO_BANNERS__ = true;
 
   const LINK       = "https://app.aguiaprime119000.com/pr/y8X6LEBU";
-  const IMG_TOPO   = "imagens/testetodos.webp";   // topo (largura cheia)
+  const IMG_TOPO   = "imagens/aguia prime.webp";   // topo (largura cheia)
   const IMG_QUADRO = "imagens/aguia300x300.webp"; // 300x300
 
   // remove restos antigos: containers nossos + imagens cotacao.webp que estavam no HTML
@@ -71,3 +71,4 @@
     inject();
   }
 })();
+
