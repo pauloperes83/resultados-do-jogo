@@ -1,35 +1,31 @@
+import re
 from pathlib import Path
 
-OLD_BLOCK_1 = """<div class="table-wrapper">
-  <a href="/gordoloterias">
-    <img src="../banner/gordoloterias.jpg" alt="Banner Gordo Loterias" style="width: 100%; height: auto;">
-  </a>
-</div>"""
-
-OLD_BLOCK_2 = """<div class="table-wrapper">
-  <a href="https://app.bancalitoral.com/pr/g5P71dlw" target="_blank">
-    <img src="../banner/litoraldasorte.jpg" alt="Banner Litoral da Sorte" style="width: 100%; height: auto;">
-  </a>
-</div>"""
-
-ALT_BLOCK_1 = """<div class="table-wrapper">
-  <a href="/gordoloterias">
-    <img src="./banner/gordoloterias.jpg" alt="Banner Gordo Loterias" style="width: 100%; height: auto;">
-  </a>
-</div>"""
-
-ALT_BLOCK_2 = """<div class="table-wrapper">
-  <a href="https://app.bancalitoral.com/pr/g5P71dlw" target="_blank">
-    <img src="./banner/litoraldasorte.jpg" alt="Banner Litoral da Sorte" style="width: 100%; height: auto;">
-  </a>
-</div>"""
+PATTERNS = [
+    re.compile(
+        r'<div class="table-wrapper">\s*<a href="/gordoloterias">.*?<img src="\./banner/gordoloterias\.jpg".*?</a>\s*</div>',
+        re.DOTALL
+    ),
+    re.compile(
+        r'<div class="table-wrapper">\s*<a href="https://app\.bancalitoral\.com/pr/g5P71dlw" target="_blank">.*?<img src="\./banner/litoraldasorte\.jpg".*?</a>\s*</div>',
+        re.DOTALL
+    ),
+    re.compile(
+        r'<div class="table-wrapper">\s*<a href="/gordoloterias">.*?<img src="\.\./banner/gordoloterias\.jpg".*?</a>\s*</div>',
+        re.DOTALL
+    ),
+    re.compile(
+        r'<div class="table-wrapper">\s*<a href="https://app\.bancalitoral\.com/pr/g5P71dlw" target="_blank">.*?<img src="\.\./banner/litoraldasorte\.jpg".*?</a>\s*</div>',
+        re.DOTALL
+    ),
+]
 
 def process_html_file(file_path: Path):
     content = file_path.read_text(encoding="utf-8", errors="ignore")
     original = content
 
-    for block in [OLD_BLOCK_1, OLD_BLOCK_2, ALT_BLOCK_1, ALT_BLOCK_2]:
-        content = content.replace(block, "")
+    for pattern in PATTERNS:
+        content = pattern.sub("", content)
 
     if content != original:
         file_path.write_text(content, encoding="utf-8")
