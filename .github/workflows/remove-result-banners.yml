@@ -1,29 +1,46 @@
-name: Remove Result Banners
+import re
+from pathlib import Path
 
-on:
-  workflow_dispatch:
+PATTERNS = [
+    re.compile(
+        r'<div class="table-wrapper">\s*<a href="/gordoloterias">\s*<img src="\./banner/gordoloterias\.jpg"[^>]*>\s*</a>\s*</div>',
+        re.IGNORECASE | re.DOTALL
+    ),
+    re.compile(
+        r'<div class="table-wrapper">\s*<a href="/gordoloterias">\s*<img src="\.\./banner/gordoloterias\.jpg"[^>]*>\s*</a>\s*</div>',
+        re.IGNORECASE | re.DOTALL
+    ),
+    re.compile(
+        r'<div class="table-wrapper">\s*<a href="https://app\.bancalitoral\.com/pr/g5P71dlw"[^>]*>\s*<img src="\./banner/litoraldasorte\.jpg"[^>]*>\s*</a>\s*</div>',
+        re.IGNORECASE | re.DOTALL
+    ),
+    re.compile(
+        r'<div class="table-wrapper">\s*<a href="https://app\.bancalitoral\.com/pr/g5P71dlw"[^>]*>\s*<img src="\.\./banner/litoraldasorte\.jpg"[^>]*>\s*</a>\s*</div>',
+        re.IGNORECASE | re.DOTALL
+    ),
+]
 
-jobs:
-  remove:
-    runs-on: ubuntu-latest
+def process_html_file(file_path: Path):
+    content = file_path.read_text(encoding="utf-8", errors="ignore")
+    original = content
 
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+    for pattern in PATTERNS:
+        content = pattern.sub("", content)
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.11"
+    if content != original:
+        file_path.write_text(content, encoding="utf-8")
+        return True
+    return False
 
-      - name: Run removal script
-        run: python remove_result_banners.py
+def main():
+    updated = []
+    for file_path in Path(".").rglob("*.html"):
+        if process_html_file(file_path):
+            updated.append(str(file_path))
 
-      - name: Commit changes
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add .
-          git diff --cached --quiet || git commit -m "Remover banners antigos das páginas de resultados"
-          git pull --rebase origin main
-          git push origin main
+    print(f"Arquivos atualizados: {len(updated)}")
+    for item in updated:
+        print(item)
+
+if __name__ == "__main__":
+    main()
