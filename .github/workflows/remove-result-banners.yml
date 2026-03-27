@@ -1,31 +1,16 @@
-import re
 from pathlib import Path
+import re
 
-PATTERNS = [
-    re.compile(
-        r'<div class="table-wrapper">\s*<a href="/gordoloterias">\s*<img src="\./banner/gordoloterias\.jpg"[^>]*>\s*</a>\s*</div>',
-        re.IGNORECASE | re.DOTALL
-    ),
-    re.compile(
-        r'<div class="table-wrapper">\s*<a href="/gordoloterias">\s*<img src="\.\./banner/gordoloterias\.jpg"[^>]*>\s*</a>\s*</div>',
-        re.IGNORECASE | re.DOTALL
-    ),
-    re.compile(
-        r'<div class="table-wrapper">\s*<a href="https://app\.bancalitoral\.com/pr/g5P71dlw"[^>]*>\s*<img src="\./banner/litoraldasorte\.jpg"[^>]*>\s*</a>\s*</div>',
-        re.IGNORECASE | re.DOTALL
-    ),
-    re.compile(
-        r'<div class="table-wrapper">\s*<a href="https://app\.bancalitoral\.com/pr/g5P71dlw"[^>]*>\s*<img src="\.\./banner/litoraldasorte\.jpg"[^>]*>\s*</a>\s*</div>',
-        re.IGNORECASE | re.DOTALL
-    ),
-]
+PATTERN = re.compile(
+    r'<div[^>]*id="afiliado-topo"[^>]*>.*?<img[^>]*src="imagens/aguia prime\.webp"[^>]*>.*?</div>',
+    re.IGNORECASE | re.DOTALL
+)
 
 def process_html_file(file_path: Path):
     content = file_path.read_text(encoding="utf-8", errors="ignore")
     original = content
 
-    for pattern in PATTERNS:
-        content = pattern.sub("", content)
+    content = PATTERN.sub("", content)
 
     if content != original:
         file_path.write_text(content, encoding="utf-8")
