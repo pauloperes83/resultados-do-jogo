@@ -1,4 +1,5 @@
 from pathlib import Path
+import re
 
 BANNER_CSS = """
 <style>
@@ -31,25 +32,30 @@ def process_html_file(file_path: Path):
     content = file_path.read_text(encoding="utf-8", errors="ignore")
     original = content
 
-    # Evita duplicação
-    if 'promo-banner-link' in content or 'res%20jogo%20bicho.webp' in content:
-        return False
+    # 1) remove banner antigo, se existir
+    content = re.sub(
+        r'<a[^>]*class="promo-banner-link"[^>]*>.*?</a>',
+        BANNER_HTML,
+        content,
+        flags=re.DOTALL
+    )
 
-    lower_content = content.lower()
+    # 2) garante que o CSS exista só uma vez
+    if '.promo-banner-link' not in content and '.promo-banner-img' not in content:
+        lower_content = content.lower()
+        head_close = lower_content.find("</head>")
+        if head_close != -1:
+            content = content[:head_close] + BANNER_CSS + "\n" + content[head_close:]
 
-    # Inserir CSS antes de </head>
-    head_close = lower_content.find("</head>")
-    if head_close != -1:
-        content = content[:head_close] + BANNER_CSS + "\n" + content[head_close:]
-
-    # Inserir banner logo após <body>
-    lower_content = content.lower()
-    body_pos = lower_content.find("<body")
-    if body_pos != -1:
-        body_end = lower_content.find(">", body_pos)
-        if body_end != -1:
-            insert_pos = body_end + 1
-            content = content[:insert_pos] + "\n" + BANNER_HTML + "\n" + content[insert_pos:]
+    # 3) se não existir banner nenhum, insere após <body>
+    if 'class="promo-banner-link"' not in content:
+        lower_content = content.lower()
+        body_pos = lower_content.find("<body")
+        if body_pos != -1:
+            body_end = lower_content.find(">", body_pos)
+            if body_end != -1:
+                insert_pos = body_end + 1
+                content = content[:insert_pos] + "\n" + BANNER_HTML + "\n" + content[insert_pos:]
 
     if content != original:
         file_path.write_text(content, encoding="utf-8")
