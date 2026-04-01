@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
   const bannerLink = "https://app.aguiaprime119000.com/pr/y8X6LEBU";
-  const bannerImage = "/imagens/geminiii%20300x250.webp";
+  const bannerImage = "/imagens/geminiii 300x250.webp";
   const bannerAlt = "Jogos de sorte online";
 
   const bannerHTML = `
