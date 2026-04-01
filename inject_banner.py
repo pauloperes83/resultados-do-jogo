@@ -23,7 +23,7 @@ BANNER_CSS = """
 
 BANNER_HTML = """
 <a href="https://app.aguiaprime119000.com/pr/y8X6LEBU" target="_blank" rel="noopener noreferrer" class="promo-banner-link">
-  <img src="/imagens/res%20jogo%20bicho.webp" alt="Jogos de sorte online" class="promo-banner-img">
+  <img src="imagens/geminiii 300x250.webp" alt="Jogos de sorte online" class="promo-banner-img">
 </a>
 """
 
