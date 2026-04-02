@@ -6,8 +6,8 @@ document.addEventListener("DOMContentLoaded", function () {
       alt: "Banner 1"
     },
     {
-      link: "https://seu-link-2.com",
-      image: "/imagens/banner-2.webp",
+      link: "https://chat.whatsapp.com/HyYz0zMD1ovAaWeY99Jfpi",
+      image: "/imagens/grupozap.png",
       alt: "Banner 2"
     }
   ];
