@@ -10,36 +10,45 @@ document.addEventListener("DOMContentLoaded", function () {
   `;
 
   const bannerCSS = `
-    <style>
-      .promo-banner-link {
-        display: block;
-        width: fit-content;
-        max-width: 300px;
-        margin: 20px auto;
-        text-align: center;
-      }
+    .promo-banner-link {
+      display: block;
+      width: fit-content;
+      max-width: 300px;
+      margin: 20px auto;
+      text-align: center;
+    }
 
-      .promo-banner-img {
-        width: 100%;
-        max-width: 300px;
-        height: auto;
-        display: block;
-        border-radius: 12px;
-        box-shadow: 0 4px 14px rgba(0,0,0,0.18);
-      }
-    </style>
+    .promo-banner-img {
+      width: 100%;
+      max-width: 300px;
+      height: auto;
+      display: block;
+      border-radius: 12px;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.18);
+    }
   `;
 
   if (!document.getElementById("promo-banner-style")) {
-    const styleWrapper = document.createElement("div");
-    styleWrapper.id = "promo-banner-style";
-    styleWrapper.innerHTML = bannerCSS;
-    document.head.appendChild(styleWrapper);
+    const style = document.createElement("style");
+    style.id = "promo-banner-style";
+    style.textContent = bannerCSS;
+    document.head.appendChild(style);
   }
 
-  const bannerContainer = document.getElementById("banner-global");
+  if (document.querySelector(".promo-banner-link")) {
+    return;
+  }
 
-  if (bannerContainer) {
-    bannerContainer.innerHTML = bannerHTML;
+  const bannerWrapper = document.createElement("div");
+  bannerWrapper.innerHTML = bannerHTML;
+
+  const target =
+    document.querySelector("main") ||
+    document.querySelector(".container") ||
+    document.querySelector(".content") ||
+    document.querySelector("body");
+
+  if (target) {
+    target.insertAdjacentElement("afterbegin", bannerWrapper.firstElementChild);
   }
 });
