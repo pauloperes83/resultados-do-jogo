@@ -1,20 +1,31 @@
 document.addEventListener("DOMContentLoaded", function () {
-  const bannerLink = "https://app.aguiaprime119000.com/pr/y8X6LEBU";
-  const bannerImage = "/imagens/geminiii-300x250.webp";
-  const bannerAlt = "Jogos de sorte online";
-
-  const bannerHTML = `
-    <a href="${bannerLink}" target="_blank" rel="noopener noreferrer" class="promo-banner-link">
-      <img src="${bannerImage}" alt="${bannerAlt}" class="promo-banner-img">
-    </a>
-  `;
+  const banners = [
+    {
+      link: "https://app.aguiaprime119000.com/pr/y8X6LEBU",
+      image: "/imagens/geminiii-300x250.webp",
+      alt: "Banner 1"
+    },
+    {
+      link: "https://seu-link-2.com",
+      image: "/imagens/banner-2.webp",
+      alt: "Banner 2"
+    }
+  ];
 
   const bannerCSS = `
+    .promo-banner-area {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      align-items: center;
+      margin: 20px auto;
+      width: 100%;
+    }
+
     .promo-banner-link {
       display: block;
       width: fit-content;
       max-width: 300px;
-      margin: 20px auto;
       text-align: center;
     }
 
@@ -35,12 +46,28 @@ document.addEventListener("DOMContentLoaded", function () {
     document.head.appendChild(style);
   }
 
-  if (document.querySelector(".promo-banner-link")) {
+  if (document.querySelector(".promo-banner-area")) {
     return;
   }
 
-  const bannerWrapper = document.createElement("div");
-  bannerWrapper.innerHTML = bannerHTML;
+  const area = document.createElement("div");
+  area.className = "promo-banner-area";
+
+  banners.forEach((banner) => {
+    const a = document.createElement("a");
+    a.href = banner.link;
+    a.target = "_blank";
+    a.rel = "noopener noreferrer";
+    a.className = "promo-banner-link";
+
+    const img = document.createElement("img");
+    img.src = banner.image;
+    img.alt = banner.alt;
+    img.className = "promo-banner-img";
+
+    a.appendChild(img);
+    area.appendChild(a);
+  });
 
   const target =
     document.querySelector("main") ||
@@ -49,6 +76,6 @@ document.addEventListener("DOMContentLoaded", function () {
     document.querySelector("body");
 
   if (target) {
-    target.insertAdjacentElement("afterbegin", bannerWrapper.firstElementChild);
+    target.insertAdjacentElement("afterbegin", area);
   }
 });
