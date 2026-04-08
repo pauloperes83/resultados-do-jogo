@@ -28,35 +28,39 @@ BANNER_HTML = """
 </a>
 """
 
+# Só o banner antigo que deve sair
+OLD_BANNER_SRC = "/imagens/geminiii-300x250.webp"
+
 def process_html_file(file_path: Path):
     content = file_path.read_text(encoding="utf-8", errors="ignore")
     original = content
 
-    # 1) substitui banner já padronizado
+    # 1) Atualiza banner novo já existente
     content = re.sub(
-        r'<a[^>]*class=["\'][^"\']*promo-banner-link[^"\']*["\'][^>]*>.*?</a>',
+        r'<a[^>]*class=["\'][^"\']*\bpromo-banner-link\b[^"\']*["\'][^>]*>.*?</a>',
         BANNER_HTML,
         content,
         flags=re.DOTALL | re.IGNORECASE
     )
 
-    # 2) remove banner antigo Gemini se estiver dentro de <a>...</a>
-    content = re.sub(
-        r'<a[^>]*>\s*<img[^>]*src=["\']/imagens/geminiii-300x250\.webp[^"\']*["\'][^>]*alt=["\']Banner 1["\'][^>]*class=["\']promo-banner-img["\'][^>]*>\s*</a>',
-        BANNER_HTML,
-        content,
+    # 2) Substitui banner antigo da Gemini quando estiver dentro de <a>...</a>
+    #    Aqui miramos SOMENTE o src da Gemini, sem afetar WhatsApp ou outros banners.
+    pattern_linked_old_banner = re.compile(
+        r'<a\b[^>]*>\s*'
+        r'<img\b(?=[^>]*\bsrc=["\']' + re.escape(OLD_BANNER_SRC) + r'["\'])[^>]*>'
+        r'\s*</a>',
         flags=re.DOTALL | re.IGNORECASE
     )
+    content = pattern_linked_old_banner.sub(BANNER_HTML, content)
 
-    # 3) remove banner antigo Gemini se estiver solto
-    content = re.sub(
-        r'<img[^>]*src=["\']/imagens/geminiii-300x250\.webp[^"\']*["\'][^>]*alt=["\']Banner 1["\'][^>]*class=["\']promo-banner-img["\'][^>]*>',
-        BANNER_HTML,
-        content,
+    # 3) Substitui banner antigo da Gemini quando estiver solto
+    pattern_old_banner_img = re.compile(
+        r'<img\b(?=[^>]*\bsrc=["\']' + re.escape(OLD_BANNER_SRC) + r'["\'])[^>]*>',
         flags=re.DOTALL | re.IGNORECASE
     )
+    content = pattern_old_banner_img.sub(BANNER_HTML, content)
 
-    # 4) garante que o CSS exista só uma vez
+    # 4) Garante CSS uma vez só
     if '.promo-banner-link' not in content or '.promo-banner-img' not in content:
         lower_content = content.lower()
         head_close = lower_content.find("</head>")
@@ -65,7 +69,7 @@ def process_html_file(file_path: Path):
         else:
             content = BANNER_CSS + "\n" + content
 
-    # 5) se não existir nenhum banner, insere após <body>
+    # 5) Se não existir nenhum banner novo, insere após <body>
     if 'promo-banner-link' not in content:
         lower_content = content.lower()
         body_pos = lower_content.find("<body")
