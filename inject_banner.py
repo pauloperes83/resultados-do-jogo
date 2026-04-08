@@ -24,7 +24,7 @@ BANNER_CSS = """
 
 BANNER_HTML = """
 <a href="https://app.aguiaprime119000.com/pr/y8X6LEBU" target="_blank" rel="noopener noreferrer" class="promo-banner-link">
-  <img src="imagens/prime.webp?v=3" alt="Jogos de sorte online" class="promo-banner-img">
+  <img src="/imagens/prime.webp?v=3" alt="Jogos de sorte online" class="promo-banner-img">
 </a>
 """
 
@@ -32,7 +32,7 @@ def process_html_file(file_path: Path):
     content = file_path.read_text(encoding="utf-8", errors="ignore")
     original = content
 
-    # 1) troca banner já padronizado, se existir
+    # 1) substitui banner já padronizado
     content = re.sub(
         r'<a[^>]*class=["\'][^"\']*promo-banner-link[^"\']*["\'][^>]*>.*?</a>',
         BANNER_HTML,
@@ -40,17 +40,17 @@ def process_html_file(file_path: Path):
         flags=re.DOTALL | re.IGNORECASE
     )
 
-    # 2) remove/troca banner antigo do Gemini, se estiver dentro de link
+    # 2) remove banner antigo Gemini se estiver dentro de <a>...</a>
     content = re.sub(
-        r'<a[^>]*>\s*<img[^>]*src=["\']/?imagens/geminiii-300x250\.webp(?:\?[^"\']*)?["\'][^>]*>\s*</a>',
+        r'<a[^>]*>\s*<img[^>]*src=["\']/imagens/geminiii-300x250\.webp[^"\']*["\'][^>]*alt=["\']Banner 1["\'][^>]*class=["\']promo-banner-img["\'][^>]*>\s*</a>',
         BANNER_HTML,
         content,
         flags=re.DOTALL | re.IGNORECASE
     )
 
-    # 3) remove/troca imagem antiga do Gemini, se estiver solta
+    # 3) remove banner antigo Gemini se estiver solto
     content = re.sub(
-        r'<img[^>]*src=["\']/?imagens/geminiii-300x250\.webp(?:\?[^"\']*)?["\'][^>]*>',
+        r'<img[^>]*src=["\']/imagens/geminiii-300x250\.webp[^"\']*["\'][^>]*alt=["\']Banner 1["\'][^>]*class=["\']promo-banner-img["\'][^>]*>',
         BANNER_HTML,
         content,
         flags=re.DOTALL | re.IGNORECASE
@@ -65,7 +65,7 @@ def process_html_file(file_path: Path):
         else:
             content = BANNER_CSS + "\n" + content
 
-    # 5) se não existir banner nenhum, insere após <body>
+    # 5) se não existir nenhum banner, insere após <body>
     if 'promo-banner-link' not in content:
         lower_content = content.lower()
         body_pos = lower_content.find("<body")
