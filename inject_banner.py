@@ -32,23 +32,41 @@ def process_html_file(file_path: Path):
     content = file_path.read_text(encoding="utf-8", errors="ignore")
     original = content
 
-    # 1) remove banner antigo, se existir
+    # 1) troca banner já padronizado, se existir
     content = re.sub(
-        r'<a[^>]*class="promo-banner-link"[^>]*>.*?</a>',
+        r'<a[^>]*class=["\'][^"\']*promo-banner-link[^"\']*["\'][^>]*>.*?</a>',
         BANNER_HTML,
         content,
-        flags=re.DOTALL
+        flags=re.DOTALL | re.IGNORECASE
     )
 
-    # 2) garante que o CSS exista só uma vez
-    if '.promo-banner-link' not in content and '.promo-banner-img' not in content:
+    # 2) remove/troca banner antigo do Gemini, se estiver dentro de link
+    content = re.sub(
+        r'<a[^>]*>\s*<img[^>]*src=["\']/?imagens/geminiii-300x250\.webp(?:\?[^"\']*)?["\'][^>]*>\s*</a>',
+        BANNER_HTML,
+        content,
+        flags=re.DOTALL | re.IGNORECASE
+    )
+
+    # 3) remove/troca imagem antiga do Gemini, se estiver solta
+    content = re.sub(
+        r'<img[^>]*src=["\']/?imagens/geminiii-300x250\.webp(?:\?[^"\']*)?["\'][^>]*>',
+        BANNER_HTML,
+        content,
+        flags=re.DOTALL | re.IGNORECASE
+    )
+
+    # 4) garante que o CSS exista só uma vez
+    if '.promo-banner-link' not in content or '.promo-banner-img' not in content:
         lower_content = content.lower()
         head_close = lower_content.find("</head>")
         if head_close != -1:
             content = content[:head_close] + BANNER_CSS + "\n" + content[head_close:]
+        else:
+            content = BANNER_CSS + "\n" + content
 
-    # 3) se não existir banner nenhum, insere após <body>
-    if 'class="promo-banner-link"' not in content:
+    # 5) se não existir banner nenhum, insere após <body>
+    if 'promo-banner-link' not in content:
         lower_content = content.lower()
         body_pos = lower_content.find("<body")
         if body_pos != -1:
