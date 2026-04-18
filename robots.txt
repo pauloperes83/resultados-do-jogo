@@ -1,12 +1,6 @@
 User-agent: *
 Allow: /
-# Permite a indexação de arquivos CSS e JS (importante para renderização correta)
 Allow: /*.css$
 Allow: /*.js$
 
-# Regras específicas para o Googlebot
-User-agent: Googlebot
-Crawl-delay: 1
-
-# Sitemap atualizado para HTTPS
-Sitemap: https://www.resultadosdojogo.com/sitemap.xml
+Sitemap: https://resultadosdojogo.com/sitemap.xml
