@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const banners = [
     {
       link: "https://app.aguiaprime119000.com/pr/UxDWTkIJ",
-      image: "300x250 cariocas.webp",
+      image: "/imagens/300x250 cariocas.webp",
       alt: "Banner 1"
     },
     {
