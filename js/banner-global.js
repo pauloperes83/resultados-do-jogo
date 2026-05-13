@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", function () {
       alt: "Banner 1"
     },
     {
-      link: "https://chat.whatsapp.com/En6wJXbhJrWHHytj0qPTfP",
+      link: "https://chat.whatsapp.com/EiTxEEswEt4G23R8EtG1q5",
       image: "/imagens/grupozap.png",
       alt: "Banner 2"
     }
