@@ -10,6 +10,11 @@ document.addEventListener("DOMContentLoaded", function () {
       image: "/imagens/grupozap.png",
       alt: "Banner 2"
     }
+    {
+  link: "https://sortepremiada.club/carioca-jb-60de50",
+  image: "/imagens/sortepremiada.webp",
+  alt: "Sorte Premiada Carioca JB"
+}
   ];
 
   const bannerCSS = `
