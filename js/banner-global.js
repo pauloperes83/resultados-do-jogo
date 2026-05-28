@@ -9,12 +9,12 @@ document.addEventListener("DOMContentLoaded", function () {
       link: "https://chat.whatsapp.com/EiTxEEswEt4G23R8EtG1q5",
       image: "/imagens/grupozap.png",
       alt: "Banner 2"
-    }
+    },
     {
-  link: "https://sortepremiada.club/carioca-jb-60de50",
-  image: "/imagens/sortepremiada.webp",
-  alt: "Sorte Premiada Carioca JB"
-}
+      link: "https://sortepremiada.club/carioca-jb-60de50",
+      image: "/imagens/sortepremiada.webp",
+      alt: "Sorte Premiada Carioca JB"
+    }
   ];
 
   const bannerCSS = `
