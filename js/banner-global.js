@@ -11,8 +11,8 @@ document.addEventListener("DOMContentLoaded", function () {
       alt: "Banner 2"
     },
     {
-      link: "https://sortepremiada.club/carioca-jb-60de50",
-      image: "/imagens/sortepremiada.webp",
+      link: "https://vegasloterias.com/login?friendlyCode=649922870",
+      image: "/imagens/caminho da sorte.webp",
       alt: "Sorte Premiada Carioca JB"
     }
   ];
