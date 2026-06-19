@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", function () {
     },
     {
       link: "https://vegasloterias.com/login?friendlyCode=649922870",
-      image: "/imagens/caminho da sorte.webp",
+      image: "/imagens/VEGAS 1_11zon.webp",
       alt: "Sorte Premiada Carioca JB"
     }
   ];
