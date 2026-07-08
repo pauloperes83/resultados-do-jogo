@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
   const banners = [
     {
-      link: "https://app.superbancas.club/pr/mrabG1wx",
+      link: "https://app.superbancas.club/pr/FBlv7ZAw",
       image: "/imagens/super.webp",
       alt: "Banner 1"
     },
