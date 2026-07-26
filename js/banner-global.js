@@ -11,8 +11,8 @@ document.addEventListener("DOMContentLoaded", function () {
       alt: "Banner 2"
     },
     {
-      link: "https://vegasloterias.com/login?friendlyCode=649922870",
-      image: "/imagens/VEGAS 1_11zon.webp",
+      link: "https://paratodosbrasil.info/registro?indicacao=LD078E2ZRB50",
+      image: "/imagens/paratodos.webp",
       alt: "Sorte Premiada Carioca JB"
     }
   ];
