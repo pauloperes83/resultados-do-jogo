@@ -1,9 +1,9 @@
 document.addEventListener("DOMContentLoaded", function () {
   const banners = [
     {
-      link: "https://app.superbancas.club/pr/FBlv7ZAw",
-      image: "/imagens/super.webp",
-      alt: "Banner 1"
+      link: "https://paratodosbrasil.info/registro?indicacao=LD078E2ZRB50",
+      image: "/imagens/paratodos.webp",
+      alt: "Sorte Premiada Carioca JB"
     },
     {
       link: "https://chat.whatsapp.com/EiTxEEswEt4G23R8EtG1q5",
@@ -11,9 +11,9 @@ document.addEventListener("DOMContentLoaded", function () {
       alt: "Banner 2"
     },
     {
-      link: "https://paratodosbrasil.info/registro?indicacao=LD078E2ZRB50",
-      image: "/imagens/paratodos.webp",
-      alt: "Sorte Premiada Carioca JB"
+      link: "https://app.superbancas.club/pr/FBlv7ZAw",
+      image: "/imagens/super.webp",
+      alt: "Banner 1"
     }
   ];
 
