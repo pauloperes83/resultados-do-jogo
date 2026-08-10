@@ -11,8 +11,8 @@ document.addEventListener("DOMContentLoaded", function () {
       alt: "Banner 2"
     },
     {
-      link: "https://app.superbancas.club/pr/FBlv7ZAw",
-      image: "/imagens/super.webp",
+      link: "https://magodasorte.info/registro?indicacao=P3PWCDN2GMGF",
+      image: "mago_11zon.webp",
       alt: "Banner 1"
     }
   ];
