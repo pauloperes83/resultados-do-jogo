@@ -46,16 +46,25 @@
                 color: #007bff;
             }
             
-            /* --- NOVOS ESTILOS PARA OS ÍCONES (FAVICONS) --- */
+            /* --- NOVOS ESTILOS PARA O TÍTULO DOS PARCEIROS --- */
+            .custom-menu-partners-title {
+                text-align: center;
+                font-weight: bold;
+                font-size: 16px;
+                color: #333;
+                margin-top: 20px;
+                padding-top: 15px;
+                border-top: 1px solid #eee; /* Linha de separação movida para cá */
+            }
+
+            /* --- ESTILOS PARA OS ÍCONES (FAVICONS) --- */
             .custom-menu-partners {
                 display: flex;
                 flex-wrap: wrap; /* Permite quebrar linha em telas pequenas, se necessário */
                 justify-content: center;
                 align-items: center;
                 gap: 15px; /* Espaçamento entre os ícones */
-                margin-top: 20px;
-                padding-top: 15px;
-                border-top: 1px solid #eee; /* Linha de separação entre as listas e os ícones */
+                margin-top: 15px;
             }
             .custom-menu-partners a {
                 display: inline-block;
@@ -193,7 +202,8 @@
                     </div>
                 </div>
                 
-                <!-- Área inserida no canto inferior com as favicons -->
+                <!-- Área inserida no canto inferior com o título persuasivo e as favicons -->
+                <div class="custom-menu-partners-title">Escolha seu App e Comece a Jogar</div>
                 ` + parceirosHTML + `
             </div>
         `;
