@@ -46,7 +46,7 @@
                 color: #007bff;
             }
             
-            /* --- NOVOS ESTILOS PARA O TÍTULO DOS PARCEIROS --- */
+            /* --- NOVOS ESTILOS PARA O T?TULO DOS PARCEIROS --- */
             .custom-menu-partners-title {
                 text-align: center;
                 font-weight: bold;
@@ -54,16 +54,16 @@
                 color: #333;
                 margin-top: 20px;
                 padding-top: 15px;
-                border-top: 1px solid #eee; /* Linha de separação movida para cá */
+                border-top: 1px solid #eee; /* Linha de separa??o movida para c? */
             }
 
-            /* --- ESTILOS PARA OS ÍCONES (FAVICONS) --- */
+            /* --- ESTILOS PARA OS ?CONES (FAVICONS) --- */
             .custom-menu-partners {
                 display: flex;
-                flex-wrap: wrap; /* Permite quebrar linha em telas pequenas, se necessário */
+                flex-wrap: wrap; /* Permite quebrar linha em telas pequenas, se necess?rio */
                 justify-content: center;
                 align-items: center;
-                gap: 15px; /* Espaçamento entre os ícones */
+                gap: 15px; /* Espa?amento entre os ?cones */
                 margin-top: 15px;
             }
             .custom-menu-partners a {
@@ -74,7 +74,7 @@
                 transform: scale(1.2); /* Efeito interativo ao passar o mouse */
             }
             .custom-menu-partners img {
-                width: 32px; /* Mantém os ícones pequenos */
+                width: 32px; /* Mant?m os ?cones pequenos */
                 height: 32px;
                 background-color: transparent; /* Fundo transparente */
                 border: none;
@@ -104,10 +104,10 @@
             "https://magodasorte.info/registro?indicacao=P3PWCDN2GMGF"
         ];
 
-        // Gera os ícones HTML extraindo automaticamente a favicon de cada domínio
+        // Gera os ?cones HTML extraindo automaticamente a favicon de cada dom?nio
         var parceirosHTML = '<div class="custom-menu-partners">';
         parceiros.forEach(function(url) {
-            // Utilizamos a API do Google para extrair o Favicon (sz=64 garante boa resolução)
+            // Utilizamos a API do Google para extrair o Favicon (sz=64 garante boa resolu??o)
             var faviconUrl = "https://www.google.com/s2/favicons?domain=" + url + "&sz=64";
             parceirosHTML += '<a href="' + url + '" target="_blank" rel="noopener noreferrer" title="' + url + '">' +
                              '<img src="' + faviconUrl + '" alt="Visitar ' + url + '">' +
@@ -134,19 +134,19 @@
                         </ul>
                     </div>
                     <div>
-                        <p>Ceará</p>
+                        <p>Cear?</p>
                         <ul>
                             <li><a href="/resultado-lotece-ceara-de-hoje">LOTECE - Loteria dos Sonhos</a></li>
                         </ul>
                     </div>
                     <div>
-                        <p>Goiás</p>
+                        <p>Goi?s</p>
                         <ul>
                             <li><a href="/resultado-look-goias-de-hoje">LOOK LOTERIAS</a></li>
                         </ul>
                     </div>
                     <div>
-                        <p>Paraíba</p>
+                        <p>Para?ba</p>
                         <ul>
                             <li><a href="/resultado-lotep-pb-de-hoje">Lotep</a></li>
                             <li><a href="/resultado-paratodos-pb-de-hoje">Paratodos PB</a></li>
@@ -159,7 +159,7 @@
                         </ul>
                     </div>
                     <div>
-                        <p>São Paulo</p>
+                        <p>S?o Paulo</p>
                         <ul>
                             <li><a href="/resultado-pt-sp-de-hoje">PT-SP</a></li>
                             <li><a href="/resultado-bandeirantes-sp-de-hoje">BANDEIRANTES</a></li>
@@ -171,13 +171,13 @@
                             <li><a href="/resultado-aval-pernambuco-de-hoje">AVAL Pernambuco</a></li>
                             <li><a href="/resultado-caminho-da-sorte-pe-de-hoje">CAMINHO DA SORTE</a></li>
                             <li><a href="/resultado-cooperativa-de-petrolina-de-hoje">Cooperativa de Petrolina-PE</a></li>
-                            <li><a href="/resultado-alianca-pe-de-hoje">EXTRAÇÃO ONLINE - ALIANÇA</a></li>
+                            <li><a href="/resultado-alianca-pe-de-hoje">EXTRA??O ONLINE - ALIAN?A</a></li>
                             <li><a href="/resultado-loteria-popular-de-hoje">LOTERIA POPULAR</a></li>
                             <li><a href="/resultado-nordeste-monte-carlos-pe-de-hoje">NORDESTE MONTE CARLOS</a></li>
                         </ul>
                     </div>
                     <div>
-                        <p>Brasília (DF)</p>
+                        <p>Bras?lia (DF)</p>
                         <ul>
                             <li><a href="/resultado-lbr-brasilia-de-hoje">LBR</a></li>
                         </ul>
@@ -202,7 +202,7 @@
                     </div>
                 </div>
                 
-                <!-- Área inserida no canto inferior com o título persuasivo e as favicons -->
+                <!-- ?rea inserida no canto inferior com o t?tulo persuasivo e as favicons -->
                 <div class="custom-menu-partners-title">Escolha seu App e Comece a Jogar</div>
                 ` + parceirosHTML + `
             </div>
