@@ -90,7 +90,8 @@
             "https://bancafeiticeira.com.br/",
             "https://tikdasorte.net.br/",
             "https://sorteclub.net.br/",
-            "https://vaidarboa.com.br/"
+            "https://vaidarboa.com.br/",
+            "https://paratodosbrasil.info/registro?indicacao=LD078E2ZRB50"
         ];
 
         // Gera os ícones HTML extraindo automaticamente a favicon de cada domínio
