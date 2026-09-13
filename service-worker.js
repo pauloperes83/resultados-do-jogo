@@ -1,4 +1,4 @@
-const CACHE_NAME = 'ResultadosdoJogo.cache';
+const CACHE_NAME = 'ResultadosdoJogo.cache2';
 const urlsToCache = [
     '/',
     '/index.html',
