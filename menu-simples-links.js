@@ -45,6 +45,33 @@
             .custom-menu-container a:hover {
                 color: #007bff;
             }
+            
+            /* --- NOVOS ESTILOS PARA OS ÍCONES (FAVICONS) --- */
+            .custom-menu-partners {
+                display: flex;
+                flex-wrap: wrap; /* Permite quebrar linha em telas pequenas, se necessário */
+                justify-content: center;
+                align-items: center;
+                gap: 15px; /* Espaçamento entre os ícones */
+                margin-top: 20px;
+                padding-top: 15px;
+                border-top: 1px solid #eee; /* Linha de separação entre as listas e os ícones */
+            }
+            .custom-menu-partners a {
+                display: inline-block;
+                transition: transform 0.2s ease-in-out;
+            }
+            .custom-menu-partners a:hover {
+                transform: scale(1.2); /* Efeito interativo ao passar o mouse */
+            }
+            .custom-menu-partners img {
+                width: 32px; /* Mantém os ícones pequenos */
+                height: 32px;
+                background-color: transparent; /* Fundo transparente */
+                border: none;
+                display: block;
+            }
+
             @media (max-width: 768px) {
                 .custom-menu-container {
                     grid-template-columns: 1fr;
@@ -52,6 +79,30 @@
             }
         `;
         document.head.appendChild(style);
+
+        // Lista dos sites desejados
+        var parceiros = [
+            "https://bancabrasileira.com.br/",
+            "https://superacertosclub.app.br/",
+            "https://superbancasclub.com.br/",
+            "https://aguiaoficial.net.br/",
+            "https://doguinhodasorte.com.br/",
+            "https://bancafeiticeira.com.br/",
+            "https://tikdasorte.net.br/",
+            "https://sorteclub.net.br/",
+            "https://vaidarboa.com.br/"
+        ];
+
+        // Gera os ícones HTML extraindo automaticamente a favicon de cada domínio
+        var parceirosHTML = '<div class="custom-menu-partners">';
+        parceiros.forEach(function(url) {
+            // Utilizamos a API do Google para extrair o Favicon (sz=64 garante boa resolução)
+            var faviconUrl = "https://www.google.com/s2/favicons?domain=" + url + "&sz=64";
+            parceirosHTML += '<a href="' + url + '" target="_blank" rel="noopener noreferrer" title="' + url + '">' +
+                             '<img src="' + faviconUrl + '" alt="Visitar ' + url + '">' +
+                             '</a>';
+        });
+        parceirosHTML += '</div>';
 
         container.innerHTML = `
             <div class="custom-menu-wrapper">
@@ -139,6 +190,9 @@
                         </ul>
                     </div>
                 </div>
+                
+                <!-- Área inserida no canto inferior com as favicons -->
+                ` + parceirosHTML + `
             </div>
         `;
     });
