@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", function () {
       alt: "Sorte Premiada Carioca JB"
     },
     {
-      link: "https://chat.whatsapp.com/EiTxEEswEt4G23R8EtG1q5",
+      link: "https://chat.whatsapp.com/Hqj2G7aSCoZ2Ss3XVEUPM4",
       image: "/imagens/grupozap.png",
       alt: "Banner 2"
     },
