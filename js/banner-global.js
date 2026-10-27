@@ -1,9 +1,9 @@
 document.addEventListener("DOMContentLoaded", function () {
   const banners = [
     {
-      link: "https://paratodosbrasil.info/registro?indicacao=LD078E2ZRB50",
-      image: "/imagens/paratodos.webp",
-      alt: "Sorte Premiada Carioca JB"
+      link: "https://app.superaguiaprime.online/pr/y3QGaJe6",
+      image: "agui 300_11zon.webp",
+      alt: "Super Águia Prime"
     },
     {
       link: "https://chat.whatsapp.com/Hqj2G7aSCoZ2Ss3XVEUPM4",
