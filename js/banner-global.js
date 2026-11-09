@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
   const banners = [
     {
-      link: "https://app.superaguiaprime.online/pr/y3QGaJe6",
+      link: "https://app.superaguiaprime.online/pr/F1QobPUy",
       image: "/imagens/agui 300_11zon.webp",
       alt: "Super Águia Prime"
     },
