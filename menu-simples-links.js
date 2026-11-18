@@ -94,7 +94,7 @@
             "https://bancabrasileira.com.br/",
             "https://superacertosclub.app.br/",
             "https://superbancasclub.com.br/",
-            "https://aguiaoficial.net.br/",
+            "https://aguiaoficialbet.com.br/",
             "https://doguinhodasorte.com.br/",
             "https://bancafeiticeira.com.br/",
             "https://tikdasorte.net.br/",
