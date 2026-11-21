@@ -94,14 +94,15 @@
             "https://bancabrasileira.com.br/",
             "https://superacertosclub.app.br/",
             "https://superbancasclub.com.br/",
-            "https://aguiaoficial.net.br/",
+            "https://aguiaoficialbet.com.br/",
             "https://doguinhodasorte.com.br/",
             "https://bancafeiticeira.com.br/",
             "https://tikdasorte.net.br/",
             "https://sorteclub.net.br/",
             "https://vaidarboa.com.br/",
             "https://paratodosbrasil.info/registro?indicacao=LD078E2ZRB50",
-            "https://magodasorte.info/registro?indicacao=P3PWCDN2GMGF"
+            "https://magodasorte.info/registro?indicacao=P3PWCDN2GMGF",
+            "https://acertosonline.club/"
         ];
 
         // Gera os ícones HTML extraindo automaticamente a favicon de cada domínio
