@@ -102,7 +102,8 @@
             "https://vaidarboa.com.br/",
             "https://paratodosbrasil.info/registro?indicacao=LD078E2ZRB50",
             "https://magodasorte.info/registro?indicacao=P3PWCDN2GMGF",
-            "https://acertosonline.club/"
+            "https://acertosonline.club/",
+            "https://super.acertosonline.club/",
         ];
 
         // Gera os ícones HTML extraindo automaticamente a favicon de cada domínio
