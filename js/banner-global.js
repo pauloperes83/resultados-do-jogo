@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", function () {
       alt: "Super Águia Prime"
     },
     {
-      link: "https://chat.whatsapp.com/Hqj2G7aSCoZ2Ss3XVEUPM4",
+      link: "https://chat.whatsapp.com/BkdWuDphEQ6Csyog4gMRD8",
       image: "/imagens/grupozap.png",
       alt: "Banner 2"
     },
